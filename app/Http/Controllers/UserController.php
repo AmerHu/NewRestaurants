@@ -27,7 +27,7 @@ class UserController extends Controller
      */
     public function create()
     {
-        //
+        return view('users.create');
     }
 
     /**
@@ -45,21 +45,21 @@ class UserController extends Controller
             'email' => 'required|min:5|email',
             'gender' => 'required|min:5',
         ]);
-        DB::table('users')
-            ->create([
+        User::create([
                 'name' => request('name'),
                 'type' => request('type'),
                 'email' => request('email'),
-                'password' => request('password'),
+                'password' => bcrypt($request['password']),
+
             ]);
-        $user_id = DB::table('flowers')->max('id');
+        $user_id = DB::table('users')->max('id');
         DB::table('informations')
             ->create([
-                'flower_id' => $user_id,
-                'images' => request('gender'),
+                'user_id' => $user_id,
                 'name' => request('name'),
                 'gender' => request('gender'),
             ]);
+        dd($request);
         return redirect('/user/admin');
     }
 
@@ -75,7 +75,6 @@ class UserController extends Controller
         $information = DB::table('informations')
             ->where('user_id', $id)
             ->get();
-
         return view('users.show', compact('user', 'information'));
     }
 
@@ -118,7 +117,6 @@ class UserController extends Controller
         ]);
         DB::table('informations')->where('user_id', $id)->update([
             'gender' => request('gender'),
-
         ]);
         return redirect('/user/admin');
     }
