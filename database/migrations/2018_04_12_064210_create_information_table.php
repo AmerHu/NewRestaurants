@@ -13,14 +13,14 @@ class CreateInformationTable extends Migration
      */
     public function up()
     {
-      Schema::create('informations', function (Blueprint $table) {
+        Schema::create('information', function (Blueprint $table) {
             $table->increments('id');
             $table->integer('user_id')->unsigned();
             $table->string('name');
             $table->string('gender');
             $table->timestamps();
         });
-        Schema::table('informations', function($table) {
+        Schema::table('information', function ($table) {
             $table->foreign('user_id')->references('id')->on('users')->onDelete('cascade');
         });
     }

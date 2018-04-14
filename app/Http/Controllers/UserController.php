@@ -4,8 +4,8 @@ namespace App\Http\Controllers;
 
 use App\Information;
 use App\User;
-use DB;
 use Illuminate\Http\Request;
+use Illuminate\Support\Facades\DB;
 
 class UserController extends Controller
 {
@@ -16,7 +16,7 @@ class UserController extends Controller
      */
     public function index()
     {
-        $users = User::all();
+        $users = User::orderBy('id')->paginate(4);
         return view('users.index', compact('users'));
     }
 
@@ -53,13 +53,12 @@ class UserController extends Controller
 
             ]);
         $user_id = DB::table('users')->max('id');
-        DB::table('informations')
-            ->create([
+        Information::create([
                 'user_id' => $user_id,
                 'name' => request('name'),
                 'gender' => request('gender'),
             ]);
-        dd($request);
+
         return redirect('/user/admin');
     }
 
@@ -72,7 +71,7 @@ class UserController extends Controller
     public function show($id)
     {
         $user = User::find($id);
-        $information = DB::table('informations')
+        $information = DB::table('information')
             ->where('user_id', $id)
             ->get();
         return view('users.show', compact('user', 'information'));
@@ -87,7 +86,7 @@ class UserController extends Controller
     public function edit($id)
     {
         $user = User::find($id);
-        $information = DB::table('informations')
+        $information = DB::table('information')
             ->where('user_id', $id)
             ->get();
 
@@ -115,7 +114,7 @@ class UserController extends Controller
             'type' => request('type'),
             'email' => request('email'),
         ]);
-        DB::table('informations')->where('user_id', $id)->update([
+        DB::table('information')->where('user_id', $id)->update([
             'gender' => request('gender'),
         ]);
         return redirect('/user/admin');
@@ -129,7 +128,7 @@ class UserController extends Controller
      */
     public function destroy($id)
     {
-        DB::table('informations')->where('user_id', $id)->delete();
+        DB::table('information')->where('user_id', $id)->delete();
         DB::table('users')->where('id', $id)->delete();
         return redirect('/user/admin');
     }
