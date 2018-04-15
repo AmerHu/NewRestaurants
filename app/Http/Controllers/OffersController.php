@@ -3,8 +3,8 @@
 namespace App\Http\Controllers;
 
 use App\Offers;
-use DB;
-use File;
+use Illuminate\Support\Facades\DB;
+use phpDocumentor\Reflection\File;
 use Illuminate\Http\Request;
 
 class OffersController extends Controller

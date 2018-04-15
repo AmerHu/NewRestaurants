@@ -5,6 +5,7 @@ namespace App\Http\Controllers;
 use App\Category;
 use App\Items;
 use Illuminate\Http\Request;
+use Illuminate\Support\Facades\DB;
 
 class ItemsController extends Controller
 {
@@ -69,9 +70,13 @@ class ItemsController extends Controller
      * @param  \App\Items  $items
      * @return \Illuminate\Http\Response
      */
-    public function show(Items $items)
+    public function show($id)
     {
+        $item = Items::find($id);
 
+        $category = Category::where('id',$item->cate_id)->pluck('name_en')->first();
+
+        return view('items.show',compact('category','item'));
     }
 
     /**

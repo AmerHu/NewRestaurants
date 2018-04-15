@@ -50,8 +50,6 @@ Route::get('/category/create', 'CategoryController@create');
 Route::post('/category/create', 'CategoryController@store');
 
 
-
-
 //items
 
 Route::get('/items/admin', 'ItemsController@index');
