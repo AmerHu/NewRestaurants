@@ -72,7 +72,7 @@ class ItemsController extends Controller
     public function show($id)
     {
         $categories = Category::all();
-        $items = Items::where('id',$id)
+        $items = Items::where('id',$id);
         return view('items.create',compact('categories'));
     }
 
