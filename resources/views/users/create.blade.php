@@ -1,6 +1,6 @@
 @extends('layouts.app')
 @section('content')
-    <form method="post" action="/User/create" enctype="multipart/form-data">
+    <form method="post" action="/user/create" enctype="multipart/form-data">
         {{ csrf_field() }}
         <div class="form-group">
             <label>Name</label>

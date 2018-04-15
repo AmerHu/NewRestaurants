@@ -19,12 +19,33 @@ Auth::routes();
 
 Route::get('/home', 'HomeController@index')->name('home');
 
+//User
 
 Route::get('/user/admin', 'UserController@index');
 Route::get('/user/show/{id}', 'UserController@show');
 Route::get('/user/edit/{id}', 'UserController@edit');
 Route::post('/user/edit/{id}', 'UserController@update');
 Route::get('/user/delete/{id}', 'UserController@destroy');
+Route::get('/user/create', 'UserController@create');
+Route::post('/user/create', 'UserController@store');
 
-Route::get('/User/create', 'UserController@create');
-Route::post('/User/create', 'UserController@store');
+//Offer
+
+Route::get('/offers/admin', 'OffersController@index');
+Route::get('/offers/show/{id}', 'OffersController@show');
+Route::get('/offers/edit/{id}', 'OffersController@edit');
+Route::post('/offers/edit/{id}', 'OffersController@update');
+Route::get('/offers/delete/{id}', 'OffersController@destroy');
+Route::get('/offers/create', 'OffersController@create');
+Route::post('/offers/create', 'OffersController@store');
+
+//Category
+
+Route::get('/category/admin', 'CategoryController@index');
+Route::get('/category/show/{id}', 'CategoryController@show');
+Route::get('/category/edit/{id}', 'CategoryController@edit');
+Route::post('/category/edit/{id}', 'CategoryController@update');
+Route::get('/category/delete/{id}', 'CategoryController@destroy');
+Route::get('/category/create', 'CategoryController@create');
+Route::post('/category/create', 'CategoryController@store');
+
