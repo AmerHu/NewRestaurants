@@ -4,6 +4,8 @@ namespace App\Http\Controllers;
 
 use App\Category;
 use Illuminate\Http\Request;
+use DB;
+use File;
 use Illuminate\Support\Facades\Input;
 
 class CategoryController extends Controller
@@ -49,7 +51,7 @@ class CategoryController extends Controller
         if ($request->hasFile('img')) {
             $file = request()->file('img');
             $fileName = time() . '.' . $file->getClientOriginalExtension();
-            $file->move(public_path('img/categories'), $fileName);
+            $file->move(public_path('images/categories'), $fileName);
 
             Category::create([
                 'name_en' => request("name_en"),
@@ -90,20 +92,44 @@ class CategoryController extends Controller
      * @param  \App\Category $category
      * @return \Illuminate\Http\Response
      */
-    public function update($id)
+    public function update(Request $request, $id)
     {
-        Category::where('id', id)
-            ->update(['votes' => 1]);
+        if ($request->hasFile('img')) {
+            $image = DB::table('categories')->where('id', $id)->pluck('img')->first();
+            $filename = (public_path('images/categories/') . $image);
+            File::delete($filename);
+
+
+            $file = $request->file('img');
+            $fileName = time() . '.' . $file->getClientOriginalExtension();
+            $file->move(public_path('images/categories'), $fileName);
+            Category::whereId($id)->update([
+
+                'name_ar' => $request['name_ar'],
+                'name_en' => $request['name_en'],
+                'img' => $fileName,
+            ]);
+        } else {
+            $image = DB::table('categories')->where('id', $id)->pluck('img')->first();
+            Category::whereId($id)->update([
+                'name_ar' => $request['name_ar'],
+                'name_en' => $request['name_en'],
+                'img' => $image,
+            ]);
+        }
+        return redirect('/category/admin');
     }
 
-    /**
-     * Remove the specified resource from storage.
-     *
-     * @param  \App\Category $category
-     * @return \Illuminate\Http\Response
-     */
-    public function destroy(Category $category)
-    {
-        //
-    }
+
+/**
+ * Remove the specified resource from storage.
+ *
+ * @param  \App\Category $category
+ * @return \Illuminate\Http\Response
+ */
+public
+function destroy(Category $category)
+{
+    //
+}
 }

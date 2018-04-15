@@ -10,4 +10,13 @@ class Items extends Model
     {
         return $this->belongsTo('App\Category');
     }
+
+    protected $fillable = [
+        'name_ar',
+        'name_en',
+        'price',
+        'description',
+        'img',
+        'cate_id',
+    ];
 }

@@ -2,6 +2,7 @@
 
 namespace App\Http\Controllers;
 
+use App\Category;
 use App\Items;
 use Illuminate\Http\Request;
 
@@ -14,7 +15,8 @@ class ItemsController extends Controller
      */
     public function index()
     {
-        //
+        $items = Items::orderBy('id')->paginate(4);
+        return view('items.index', compact('items'));
     }
 
     /**
@@ -24,7 +26,8 @@ class ItemsController extends Controller
      */
     public function create()
     {
-        //
+        $categories = Category::all();
+        return view('items.create',compact('categories'));
     }
 
     /**
@@ -35,8 +38,30 @@ class ItemsController extends Controller
      */
     public function store(Request $request)
     {
-        //
+        $this->validate(request(), [
+            'name_ar' => 'required|min:5',
+            'name_en' => 'required|min:5',
+            'price' => 'required|min:1|numeric',
+            'description' => 'required|min:5',
+            'img' => 'required|min:5|mimes:jpeg,bmp,png',
+            'cate_id' => 'required',
+        ]);
+        if ($request->hasFile('img')) {
+            $file = request()->file('img');
+            $fileName = time() . '.' . $file->getClientOriginalExtension();
+            $file->move(public_path('images/offers'), $fileName);
+            Items::create([
+                'name_ar' => $request['name_ar'],
+                'name_en' => $request['name_en'],
+                'price' => $request['price'],
+                'cate_id' => request('cate_id'),
+                'description' => $request['description'],
+                'img' => $fileName,
+            ]);
+        }
+        return redirect('/items/admin');
     }
+
 
     /**
      * Display the specified resource.
@@ -46,7 +71,7 @@ class ItemsController extends Controller
      */
     public function show(Items $items)
     {
-        //
+
     }
 
     /**

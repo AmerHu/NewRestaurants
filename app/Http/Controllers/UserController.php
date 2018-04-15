@@ -108,7 +108,6 @@ class UserController extends Controller
             'email' => 'required|min:5',
             'type' => 'required|min:5',
         ]);
-
         User::whereId($id)->update([
             'name' => request('name'),
             'type' => request('type'),

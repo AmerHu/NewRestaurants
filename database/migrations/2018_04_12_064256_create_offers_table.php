@@ -20,7 +20,7 @@ class CreateOffersTable extends Migration
             $table->double('price');
             $table->string('description');
             $table->string('img');
-            $table->string('sub_item');
+            $table->boolean('require');
             $table->timestamps();
         });
     }

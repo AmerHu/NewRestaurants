@@ -19,6 +19,7 @@ class CreateSubItemsTable extends Migration
             $table->integer('item_id');
             $table->timestamps();
         });
+
     }
 
     /**

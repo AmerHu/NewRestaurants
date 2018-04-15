@@ -44,7 +44,7 @@ class OffersController extends Controller
             'price' => 'required|min:1|numeric',
             'description' => 'required|min:5',
             'img' => 'required|min:5|mimes:jpeg,bmp,png',
-            'sub_item' => 'required|min:5',
+            'require'=>'required'
         ]);
 
         if ($request->hasFile('img')) {
@@ -57,7 +57,7 @@ class OffersController extends Controller
                 'price' => $request['price'],
                 'description' => $request['description'],
                 'img' => $fileName,
-                'sub_item' => $request['sub_item'],
+                'require' => $request['require'],
             ]);
         }
         return redirect('/offers/admin');
@@ -72,7 +72,7 @@ class OffersController extends Controller
     public function show($id)
     {
         $offer = Offers::find($id);
-        return view('offers.show',compact('offer'));
+        return view('offers.show', compact('offer'));
     }
 
     /**
@@ -81,10 +81,10 @@ class OffersController extends Controller
      * @param  \App\Offers $offers
      * @return \Illuminate\Http\Response
      */
-    public function edit(Offers $offers ,$id)
+    public function edit(Offers $offers, $id)
     {
-        $offer = Offers::find( $id);
-        return view('offers.edit',compact('offer'));
+        $offer = Offers::find($id);
+        return view('offers.edit', compact('offer'));
     }
 
     /**
@@ -97,15 +97,15 @@ class OffersController extends Controller
     public function update(Request $request, $id)
     {
         if ($request->hasFile('img')) {
-            $image = DB::table('offers')->where('id', $id)->pluck('img');
-            dd($image);
-            $filename = public_path('img') . 'images/offers' . $image;
+            $image = DB::table('offers')->where('id', $id)->pluck('img')->first();
+            $filename = (public_path('images/offers/').$image);
+
             File::delete($filename);
 
 
             $file = $request->file('img');
             $fileName = time() . '.' . $file->getClientOriginalExtension();
-            $file->move(public_path('img'), $fileName);
+            $file->move(public_path('images/offers'), $fileName);
             Offers::whereId($id)->update([
 
                 'name_ar' => $request['name_ar'],
@@ -113,9 +113,20 @@ class OffersController extends Controller
                 'price' => $request['price'],
                 'description' => $request['description'],
                 'img' => $fileName,
-                'sub_item' => $request['sub_item'],
+                'require' => $request['require'],
             ]);
-        }
+        } else {
+            $image = DB::table('offers')->where('id', $id)->pluck('img')->first();
+            Offers::whereId($id)->update([
+
+                'name_ar' => $request['name_ar'],
+                'name_en' => $request['name_en'],
+                'price' => $request['price'],
+                'description' => $request['description'],
+                'img' => $image,
+                'require' => $request['require'],
+            ]);
+    }
         return redirect('/offers/admin');
     }
 

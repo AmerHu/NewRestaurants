@@ -1,6 +1,6 @@
 @extends('layouts.app')
 @section('content')
-    <form method="post" action="/offers/create" enctype="multipart/form-data">
+    <form method="post" action="/items/create" enctype="multipart/form-data">
         {{ csrf_field() }}
         <div class="form-group">
             <label>Name AR</label>
@@ -31,7 +31,6 @@
         </div>
 
 
-
         <div class="form-group">
             <label>Description</label>
             <input type="text" class="form-control" name="description" id="description"/>
@@ -42,13 +41,22 @@
             @endif
         </div>
         <div class="form-group">
-            <label>Is Offers</label>
-            <br>
-            <label> Required  </label>
-            <input name="require" id="require" type="radio" value="1"><br/>
-            <label>Not Required   </label>
-            <input checked="checked"id="require" name="require" type="radio" value="0">
+            <label>Category</label>
+            <select name="cate_id" class="form-control" style="height:36px">
+                <option>Select Vehicle</option>
+                @foreach($categories as $category)
+                    <option value="{{ $category->id }}">
+                        {{ $category->name_en }}
+                    </option>
+                @endforeach
+                @if ($errors->has('cate_id'))
+                    <span class="help-block">
+                                        <strong>{{ $errors->first('cate_id') }}</strong>
+                                    </span>
+                @endif
+            </select>
         </div>
+
 
         <div class="form-group">
             <label>Image</label>
@@ -63,3 +71,5 @@
         <button type="submit" class="btn btn-default">Publish</button>
     </form>
 @endsection
+
+
