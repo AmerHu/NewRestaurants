@@ -12,6 +12,6 @@ class Offers extends Model
         'price',
         'description',
         'img',
-        'sub_item'
+        'require'
     ];
 }

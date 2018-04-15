@@ -42,6 +42,7 @@
                 </span>
             @endif
         </div>
+
         <div class="form-group">
             <label>Description</label>
             <input type="text" class="form-control" name="description" id="description" value = {{$offer->description}}>
@@ -52,15 +53,28 @@
             @endif
         </div>
 
+        @if($offer->require ===  1)
         <div class="form-group">
-            <label>Sub Item</label>
-            <input type="sub_item" class="form-control" name="sub_item" id="sub_item"  value = {{$offer->sub_item}}>
-            @if ($errors->has('sub_item'))
-                <span class="help-block">
-                    <strong>{{ $errors->first('sub_item') }}</strong>
-                </span>
-            @endif
+            <label>Is Offers</label>
+            <br>
+            <label> Required  </label>
+            <input checked="checked" name="require" id="require" type="radio" value="1"><br/>
+            <label>Not Required   </label>
+            <input id="require" name="require" type="radio" value="0">
         </div>
+        @endif
+
+        @if($offer->require ===  0)
+            <div class="form-group">
+                <label>Is Offers</label>
+                <br>
+                <label> Required  </label>
+                <input checked="checked" name="require" id="require" type="radio" value="1"><br/>
+                <label>Not Required   </label>
+                <input checked="checked" id="require" name="require" type="radio" value="0">
+            </div>
+        @endif
+
         <div class="form-group">
             <label>{{ $offer->img }}</label>
 
@@ -77,6 +91,9 @@
                </span>
             @endif
         </div>
+
+
+
         <button type="submit" class="btn btn-default">Publish</button>
     </form>
 @endsection

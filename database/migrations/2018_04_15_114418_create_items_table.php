@@ -4,7 +4,7 @@ use Illuminate\Support\Facades\Schema;
 use Illuminate\Database\Schema\Blueprint;
 use Illuminate\Database\Migrations\Migration;
 
-class CreateExtrasTable extends Migration
+class CreateItemsTable extends Migration
 {
     /**
      * Run the migrations.
@@ -13,13 +13,18 @@ class CreateExtrasTable extends Migration
      */
     public function up()
     {
-        Schema::create('extras', function (Blueprint $table) {
-            $table->increments('id');
+        Schema::create('items', function (Blueprint $table) {
+            $table->increments('id')->unsigned();
             $table->string('name_ar');
             $table->string('name_en');
             $table->double('price');
             $table->string('description');
+            $table->string('img');
+            $table->integer('cate_id')->unsigned();
             $table->timestamps();
+        });
+        Schema::table('items', function ($table) {
+            $table->foreign('cate_id')->references('id')->on('categories')->onDelete('cascade');
         });
     }
 
@@ -30,6 +35,6 @@ class CreateExtrasTable extends Migration
      */
     public function down()
     {
-        Schema::dropIfExists('extras');
+        Schema::dropIfExists('items');
     }
 }

@@ -4,7 +4,7 @@ use Illuminate\Support\Facades\Schema;
 use Illuminate\Database\Schema\Blueprint;
 use Illuminate\Database\Migrations\Migration;
 
-class CreateItemsTable extends Migration
+class CreateExtrasTable extends Migration
 {
     /**
      * Run the migrations.
@@ -13,17 +13,17 @@ class CreateItemsTable extends Migration
      */
     public function up()
     {
-        Schema::create('items', function ( $table) {
-            $table->engine = 'InnoDB';
+        Schema::create('extras', function (Blueprint $table) {
             $table->increments('id');
-            $table->string('name_ar');
-            $table->string('name_en');
-            $table->string('description');
-            $table->string('img')->nullable();
-            $table->integer('sub_item')->nullable();
-            $table->integer('cate_id')->unsigned();
+            $table->integer('item_id')->unsigned();
+            $table->string('name');
+            $table->double('price');
             $table->timestamps();
         });
+        Schema::table('extras', function ($table) {
+            $table->foreign('item_id')->references('id')->on('items')->onDelete('cascade');
+        });
+
     }
 
     /**
@@ -33,6 +33,6 @@ class CreateItemsTable extends Migration
      */
     public function down()
     {
-        Schema::drop('items');
+        Schema::dropIfExists('extras');
     }
 }

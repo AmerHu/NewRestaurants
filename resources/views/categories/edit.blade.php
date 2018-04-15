@@ -37,10 +37,10 @@
                 </label>
 
 
-                <input id="img" name="img" type="file" style=" display: none;"/>
+                <input id="file-upload" name="img" type="file" style=" display: none;"/>
 
                 <div class="col-md-6">
-                    <img src="/img/categories/{{ $category->img }}" style="height: 150px">
+                    <img src="/images/categories/{{ $category->img }}" style="height: 150px">
                 </div>
                 @if ($errors->has('img'))
                     <span class="help-block">

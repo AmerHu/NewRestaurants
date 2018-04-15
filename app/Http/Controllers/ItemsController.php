@@ -69,11 +69,9 @@ class ItemsController extends Controller
      * @param  \App\Items  $items
      * @return \Illuminate\Http\Response
      */
-    public function show($id)
+    public function show(Items $items)
     {
-        $categories = Category::all();
-        $items = Items::where('id',$id);
-        return view('items.create',compact('categories','items'));
+
     }
 
     /**

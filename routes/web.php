@@ -49,3 +49,16 @@ Route::get('/category/delete/{id}', 'CategoryController@destroy');
 Route::get('/category/create', 'CategoryController@create');
 Route::post('/category/create', 'CategoryController@store');
 
+
+
+
+//items
+
+Route::get('/items/admin', 'ItemsController@index');
+Route::get('/items/show/{id}', 'ItemsController@show');
+Route::get('/items/edit/{id}', 'ItemsController@edit');
+Route::post('/items/edit/{id}', 'ItemsController@update');
+Route::get('/items/delete/{id}', 'ItemsController@destroy');
+Route::get('/items/create', 'ItemsController@create');
+Route::post('/items/create', 'ItemsController@store');
+
