@@ -12,7 +12,8 @@
             <hr/>
             <h2>Extra Items</h2>
             @foreach($extras as $extra)
-                <h3>  {{ $extra->name }}</h3>
+                <h3>  {{ $extra->name }} <a href="/subitems/delete/{{$extra->id}}/{{ $item->id}}"class="btn btn-danger" type="button" >X</a></h3>
+
             @endforeach
 
             <a class="btn btn-primary" type="button" href="/items/edit/{{$item->id}}">edit</a>

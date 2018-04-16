@@ -75,6 +75,6 @@ Route::post('/extra/create', 'ExtraController@store');
 
 Route::get('/subitems/edit/{id}', 'SubSubItemController@edit');
 Route::post('/subitems/edit/{id}', 'SubItemController@update');
-Route::get('/subitems/delete/{id}', 'SubItemController@destroy');
+Route::get('/subitems/delete/{item_id}/{extra_id}', 'SubItemController@destroy');
 Route::get('/subitems/create/{id}', 'SubItemController@create');
 Route::post('/subitems/create', 'SubItemController@store');
