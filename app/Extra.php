@@ -10,4 +10,8 @@ class Extra extends Model
     {
         return $this->belongsTo('App\items');
     }
+    protected $fillable = [
+        'name', 'price',
+    ];
+
 }

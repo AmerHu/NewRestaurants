@@ -3,6 +3,7 @@
 namespace App\Http\Controllers;
 
 use App\Extra;
+use App\Items;
 use App\SubItem;
 use Illuminate\Http\Request;
 
@@ -23,10 +24,11 @@ class SubItemController extends Controller
      *
      * @return \Illuminate\Http\Response
      */
-    public function create($item_id)
+    public function create($id)
     {
-        $extra =Extra::all();
-        return view('subitem.create',compact('extra'));
+        $item = Items::find($id);
+        $extras =Extra::all();
+        return view('subitem.create',compact('extras','item'));
     }
 
     /**
@@ -37,7 +39,14 @@ class SubItemController extends Controller
      */
     public function store(Request $request)
     {
-        //
+        $extras = $request->get('extra_id');
+        foreach ($extras as $extra){
+            $subItem = new SubItem;
+            $subItem->item_id = $request->get('item_id');
+            $subItem->extra_id = $extra;
+            $subItem->save();
+        }
+        return redirect('/items/admin');
     }
 
     /**

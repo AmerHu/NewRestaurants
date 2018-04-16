@@ -5,7 +5,8 @@ namespace App\Http\Controllers;
 use App\Category;
 use App\Items;
 use Illuminate\Http\Request;
-use Illuminate\Support\Facades\DB;
+use DB;
+use File;
 
 class ItemsController extends Controller
 {
@@ -16,7 +17,7 @@ class ItemsController extends Controller
      */
     public function index()
     {
-        $items = Items::orderBy('id')->paginate(4);
+        $items = Items::orderBy('id')->paginate(3);
         return view('items.index', compact('items'));
     }
 
@@ -74,10 +75,14 @@ class ItemsController extends Controller
     public function show($id)
     {
         $item = Items::find($id);
-
+        $extras = DB::table('extras')
+            ->select('extras.id', 'extras.name')
+            ->join('sub_items','extra_id','=','extras.id')
+            ->where('item_id', '=', $id)
+            ->get();
         $category = Category::where('id',$item->cate_id)->pluck('name_en')->first();
 
-        return view('items.show',compact('category','item'));
+        return view('items.show',compact('category','item','extras'));
     }
 
     /**
@@ -86,8 +91,9 @@ class ItemsController extends Controller
      * @param  \App\Items  $items
      * @return \Illuminate\Http\Response
      */
-    public function edit(Items $items)
+    public function edit($id)
     {
+        $items = Items::find($id);
         $categories = Category::all();
         return view('items.edit',compact('items','categories'));
     }
