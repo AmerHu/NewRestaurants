@@ -12,7 +12,8 @@
             <hr/>
             <h2>Extra Items</h2>
             @foreach($extras as $extra)
-                <h3>  {{ $extra->name }} <a href="/subitems/delete/{{$extra->id}}/{{ $item->id}}"class="btn btn-danger" type="button" >X</a></h3>
+                <h3>  {{ $extra->name }} <a href="/subitems/delete/{{$extra->id}}/{{ $item->id}}"class="btn btn-danger" type="button"
+                                            onclick="return confirm('Are you sure you want to delete this OFFERS?')">X</a></h3>
 
             @endforeach
 
