@@ -13,11 +13,11 @@
 </style>
 @section('content')
 
-    <form method="post" action="/items/edit/{{$offer->id}}" enctype="multipart/form-data">
+    <form method="post" action="/items/edit/{{$items->id}}" enctype="multipart/form-data">
         {{ csrf_field() }}
         <div class="form-group">
             <label>Name AR</label>
-            <input type="text" name="name_ar" class="form-control" id="name_ar" value = {{$offer->name_en}}>
+            <input type="text" name="name_ar" class="form-control" id="name_ar" value = {{$items->name_ar}}>
             @if ($errors->has('name_ar'))
                 <span class="help-block">
                     <strong>{{ $errors->first('name_ar') }}</strong>
@@ -26,7 +26,7 @@
         </div>
         <div class="form-group">
             <label>Name En</label>
-            <input type="text" class="form-control" name="name_en" id="name_en" value = {{$offer->name_ar}}>
+            <input type="text" class="form-control" name="name_en" id="name_en" value = {{$items->name_en}}>
             @if ($errors->has('name_en'))
                 <span class="help-block">
                     <strong>{{ $errors->first('name_en') }}</strong>
@@ -35,7 +35,7 @@
         </div>
         <div class="form-group">
             <label>Price</label>
-            <input type="text" class="form-control" name="price" id="price" value = {{$offer->price}}>
+            <input type="text" class="form-control" name="price" id="price" value = {{$items->price}}>
             @if ($errors->has('price'))
                 <span class="help-block">
                     <strong>{{ $errors->first('price') }}</strong>
@@ -44,17 +44,33 @@
         </div>
         <div class="form-group">
             <label>Description</label>
-            <input type="text" class="form-control" name="description" id="description" value = {{$offer->description}}>
+            <input type="text" class="form-control" name="description" id="description" value = {{$items->description}}>
             @if ($errors->has('description'))
                 <span class="help-block">
                     <strong>{{ $errors->first('description') }}</strong>
                 </span>
             @endif
         </div>
+        <div class="form-group">
+            <label>Category</label>
+            <select name="cate_id" class="form-control" style="height:36px">
+                <option value="{{ $items->cate_id }}">NO Change Category</option>
+                @foreach($categories as $category)
+                    <option value="{{ $category->id }}">
+                        {{ $category->name_en }}
+                    </option>
+                @endforeach
+                @if ($errors->has('cate_id'))
+                    <span class="help-block">
+                                        <strong>{{ $errors->first('cate_id') }}</strong>
+                                    </span>
+                @endif
+            </select>
+        </div>
 
 
         <div class="form-group">
-            <label>{{ $offer->img }}</label>
+            <label>{{ $items->img }}</label>
 
             <label for="file-upload" class="custom-file-upload">
                 <i class="fa fa-cloud-upload"></i> <Strong> Change Image</Strong>

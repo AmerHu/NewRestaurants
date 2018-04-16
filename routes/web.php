@@ -54,7 +54,7 @@ Route::post('/category/create', 'CategoryController@store');
 
 Route::get('/items/admin', 'ItemsController@index');
 Route::get('/items/show/{id}', 'ItemsController@show');
-Route::get('/items/edit/{id}', 'ItemsController@edit');
+Route::get('/items/edit/{items}', 'ItemsController@edit');
 Route::post('/items/edit/{id}', 'ItemsController@update');
 Route::get('/items/delete/{id}', 'ItemsController@destroy');
 Route::get('/items/create', 'ItemsController@create');

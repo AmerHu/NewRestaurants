@@ -47,10 +47,11 @@ class ItemsController extends Controller
             'img' => 'required|min:5|mimes:jpeg,bmp,png',
             'cate_id' => 'required',
         ]);
+
         if ($request->hasFile('img')) {
             $file = request()->file('img');
             $fileName = time() . '.' . $file->getClientOriginalExtension();
-            $file->move(public_path('images/offers'), $fileName);
+            $file->move(public_path('images/items'), $fileName);
             Items::create([
                 'name_ar' => $request['name_ar'],
                 'name_en' => $request['name_en'],
@@ -87,7 +88,8 @@ class ItemsController extends Controller
      */
     public function edit(Items $items)
     {
-        //
+        $categories = Category::all();
+        return view('items.edit',compact('items','categories'));
     }
 
     /**
@@ -97,10 +99,42 @@ class ItemsController extends Controller
      * @param  \App\Items  $items
      * @return \Illuminate\Http\Response
      */
-    public function update(Request $request, Items $items)
+    public function update(Request $request, $id)
     {
-        //
+        if ($request->hasFile('img')) {
+            $image = DB::table('items')->where('id', $id)->pluck('img')->first();
+            $filename = (public_path('images/items/').$image);
+
+            File::delete($filename);
+
+
+            $file = $request->file('img');
+            $fileName = time() . '.' . $file->getClientOriginalExtension();
+            $file->move(public_path('images/items'), $fileName);
+            Items::whereId($id)->update([
+
+                'name_ar' => $request['name_ar'],
+                'name_en' => $request['name_en'],
+                'price' => $request['price'],
+                'description' => $request['description'],
+                'img' => $fileName,
+                'cate_id' => $request['cate_id'],
+            ]);
+        } else {
+            $image = DB::table('items')->where('id', $id)->pluck('img')->first();
+            Items::whereId($id)->update([
+
+                'name_ar' => $request['name_ar'],
+                'name_en' => $request['name_en'],
+                'price' => $request['price'],
+                'description' => $request['description'],
+                'img' => $image,
+                'cate_id' => $request['cate_id'],
+            ]);
+        }
+        return redirect('/items/admin');
     }
+
 
     /**
      * Remove the specified resource from storage.
