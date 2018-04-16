@@ -11,6 +11,12 @@ class Items extends Model
         return $this->belongsTo('App\Category');
     }
 
+    public function extras()
+    {
+        return $this->hasMany('App\Extra');
+    }
+
+
     protected $fillable = [
         'name_ar',
         'name_en',
@@ -19,4 +25,5 @@ class Items extends Model
         'img',
         'cate_id',
     ];
+
 }

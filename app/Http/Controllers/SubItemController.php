@@ -2,6 +2,7 @@
 
 namespace App\Http\Controllers;
 
+use App\Extra;
 use App\SubItem;
 use Illuminate\Http\Request;
 
@@ -22,9 +23,10 @@ class SubItemController extends Controller
      *
      * @return \Illuminate\Http\Response
      */
-    public function create()
+    public function create($item_id)
     {
-        //
+        $extra =Extra::all();
+        return view('subitem.create',compact('extra'));
     }
 
     /**
