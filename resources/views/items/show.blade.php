@@ -12,11 +12,11 @@
             <hr/>
             <h2>Extra Items</h2>
             @foreach($extras as $extra)
-                <h3>  {{ $extra->name }} <a href="/subitems/delete/{{$extra->id}}/{{ $item->id}}"class="btn btn-danger" type="button"
+                <h3>  {{ $extra->name }} <a href="/subitems/delete/{{$extra->id}}/{{ $item->id}}" class="btn btn-danger" type="button"
                                             onclick="return confirm('Are you sure you want to delete this OFFERS?')">X</a></h3>
 
             @endforeach
-
+<hr/>
             <a class="btn btn-primary" type="button" href="/items/edit/{{$item->id}}">edit</a>
 
             <a class="btn btn-danger" type="button" href="/items/delete/{{$item->id}}"

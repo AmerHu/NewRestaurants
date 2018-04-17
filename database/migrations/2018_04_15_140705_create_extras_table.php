@@ -14,7 +14,7 @@ class CreateExtrasTable extends Migration
     public function up()
     {
         Schema::create('extras', function (Blueprint $table) {
-            $table->increments('id');
+            $table->increments('id')->unsigned();
             $table->string('name');
             $table->double('price');
             $table->timestamps();
