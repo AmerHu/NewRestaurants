@@ -6,24 +6,24 @@ use Illuminate\Database\Eloquent\Model;
 
 class Items extends Model
 {
-// public function items()
-//    {
-//        return $this->belongsTo('App\Category');
-//    }
-//
-//    public function extras()
-//    {
-//        return $this->hasMany('App\Extra');
-//    }
-//
-//
-//    protected $fillable = [
-//        'name_ar',
-//        'name_en',
-//        'price',
-//        'description',
-//        'img',
-//        'cate_id',
-//    ];
+ public function items()
+    {
+        return $this->belongsTo('App\Category');
+    }
+
+    public function extras()
+    {
+        return $this->hasMany('App\Extra');
+    }
+
+
+    protected $fillable = [
+        'name_ar',
+        'name_en',
+        'price',
+        'description',
+        'img',
+        'cate_id',
+    ];
 
 }

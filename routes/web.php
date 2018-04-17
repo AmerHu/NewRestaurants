@@ -73,8 +73,30 @@ Route::post('/extra/create', 'ExtraController@store');
 
 //subitem
 
-Route::get('/subitems/edit/{id}', 'SubSubItemController@edit');
+Route::get('/subitems/edit/{id}', 'SubItemController@edit');
 Route::post('/subitems/edit/{id}', 'SubItemController@update');
 Route::get('/subitems/delete/{item_id}/{extra_id}', 'SubItemController@destroy');
 Route::get('/subitems/create/{id}', 'SubItemController@create');
 Route::post('/subitems/create', 'SubItemController@store');
+
+
+
+
+//description
+
+Route::get('/desc/admin', 'DescriptionController@index');
+Route::get('/desc/show/{id}', 'DescriptionController@show');
+Route::get('/desc/edit/{id}', 'DescriptionController@edit');
+Route::post('/desc/edit/{id}', 'DescriptionController@update');
+Route::get('/desc/delete/{id}', 'DescriptionController@destroy');
+Route::get('/desc/create', 'DescriptionController@create');
+Route::post('/desc/create', 'DescriptionController@store');
+
+
+//description item
+
+Route::get('/desitem/edit/{id}', 'ItemDescController@edit');
+Route::post('/desitem/edit/{id}', 'ItemDescController@update');
+Route::get('/desitem/delete/{item_id}/{desc_id}', 'ItemDescController@destroy');
+Route::get('/desitem/create/{id}', 'ItemDescController@create');
+Route::post('/desitem/create', 'ItemDescController@store');

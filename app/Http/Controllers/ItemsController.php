@@ -17,7 +17,7 @@ class ItemsController extends Controller
      */
     public function index()
     {
-        $items = Items::orderBy('id')->paginate(3);
+        $items = Items::all();
         return view('items.index', compact('items'));
     }
 
@@ -44,7 +44,6 @@ class ItemsController extends Controller
             'name_ar' => 'required|min:5',
             'name_en' => 'required|min:5',
             'price' => 'required|min:1|numeric',
-            'description' => 'required|min:5',
             'img' => 'required|min:5|mimes:jpeg,bmp,png',
             'cate_id' => 'required',
         ]);
@@ -58,7 +57,6 @@ class ItemsController extends Controller
                 'name_en' => $request['name_en'],
                 'price' => $request['price'],
                 'cate_id' => request('cate_id'),
-                'description' => $request['description'],
                 'img' => $fileName,
             ]);
         }
@@ -80,9 +78,18 @@ class ItemsController extends Controller
             ->join('sub_items','extra_id','=','extras.id')
             ->where('item_id', '=', $id)
             ->get();
+
+        $descriptions = DB::table('descriptions')
+            ->select('descriptions.id', 'descriptions.name')
+            ->join('item_descs','desc_id','=','descriptions.id')
+            ->where('item_id', '=', $id)
+            ->get();
+
+
+
         $category = Category::where('id',$item->cate_id)->pluck('name_en')->first();
 
-        return view('items.show',compact('category','item','extras'));
+        return view('items.show',compact('category','item','extras','descriptions'));
     }
 
     /**
@@ -122,7 +129,6 @@ class ItemsController extends Controller
                 'name_ar' => $request['name_ar'],
                 'name_en' => $request['name_en'],
                 'price' => $request['price'],
-                'description' => $request['description'],
                 'img' => $fileName,
                 'cate_id' => $request['cate_id'],
             ]);
@@ -133,7 +139,6 @@ class ItemsController extends Controller
                 'name_ar' => $request['name_ar'],
                 'name_en' => $request['name_en'],
                 'price' => $request['price'],
-                'description' => $request['description'],
                 'img' => $image,
                 'cate_id' => $request['cate_id'],
             ]);

@@ -16,7 +16,7 @@ class OffersController extends Controller
      */
     public function index()
     {
-        $offers = Offers::orderBy('id')->paginate(4);
+        $offers = Offers::orderBy('id')->paginate(3);
         return view('offers.index', compact('offers'));
     }
 

@@ -18,7 +18,6 @@ class CreateItemsTable extends Migration
             $table->string('name_ar');
             $table->string('name_en');
             $table->double('price');
-            $table->string('description');
             $table->string('img');
             $table->integer('cate_id')->unsigned();
             $table->timestamps();

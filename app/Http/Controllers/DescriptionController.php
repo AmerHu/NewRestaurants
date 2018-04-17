@@ -4,6 +4,7 @@ namespace App\Http\Controllers;
 
 use App\Description;
 use Illuminate\Http\Request;
+use Illuminate\Support\Facades\DB;
 
 class DescriptionController extends Controller
 {
@@ -14,7 +15,8 @@ class DescriptionController extends Controller
      */
     public function index()
     {
-        //
+        $descriptions = Description::orderBy('id');
+        return view('descriptions.index', compact('descriptions'));
     }
 
     /**
@@ -24,7 +26,7 @@ class DescriptionController extends Controller
      */
     public function create()
     {
-        //
+        return view('descriptions.create');
     }
 
     /**
@@ -35,7 +37,15 @@ class DescriptionController extends Controller
      */
     public function store(Request $request)
     {
-        //
+        $this->validate(request(), [
+            'name' => 'required|min:5',
+
+        ]);
+        Description::create([
+            'name' => $request['name'],
+
+        ]);
+        return redirect('/desc/admin');
     }
 
     /**
@@ -44,9 +54,10 @@ class DescriptionController extends Controller
      * @param  \App\Description  $description
      * @return \Illuminate\Http\Response
      */
-    public function show(Description $description)
+    public function show($id)
     {
-        //
+        $description= Description::find($id);
+        return view('descriptions.show', compact('description'));
     }
 
     /**
@@ -55,9 +66,10 @@ class DescriptionController extends Controller
      * @param  \App\Description  $description
      * @return \Illuminate\Http\Response
      */
-    public function edit(Description $description)
+    public function edit($id)
     {
-        //
+        $description= Description::find($id);
+        return view(' descriptions.edit', compact('description'));
     }
 
     /**
@@ -69,7 +81,14 @@ class DescriptionController extends Controller
      */
     public function update(Request $request, Description $description)
     {
-        //
+        $this->validate(request(), [
+            'name' => 'required|min:5',
+        ]);
+        DB::table('descriptions')->update([
+            'name' => $request['name'],
+        ]);
+
+        return redirect('/desc/show/' .$request->get('id'));
     }
 
     /**

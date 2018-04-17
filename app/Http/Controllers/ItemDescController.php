@@ -2,8 +2,11 @@
 
 namespace App\Http\Controllers;
 
+use App\Description;
 use App\Item_desc;
+use App\Items;
 use Illuminate\Http\Request;
+use Illuminate\Support\Facades\DB;
 
 class ItemDescController extends Controller
 {
@@ -22,9 +25,20 @@ class ItemDescController extends Controller
      *
      * @return \Illuminate\Http\Response
      */
-    public function create()
+    public function create($id)
     {
-        //
+        $item = Items::find($id);
+//
+//        $desc_id = DB::table('sub_items')->where('item_id', $id)->pluck('extra_id')->toArray();
+//
+//        if ($desc_id !== null) {
+//
+//            $descriptions = Description::where('id', '!=', $desc_id)->get();
+//
+//        } else {
+            $descriptions= Description::all();
+//        }
+        return view('desc_item.create', compact('descriptions', 'item'));
     }
 
     /**
@@ -35,7 +49,14 @@ class ItemDescController extends Controller
      */
     public function store(Request $request)
     {
-        //
+        $descriptions = $request->get('extra_id');
+        foreach ($descriptions as $desc) {
+            $itemDesc = new Item_desc();
+            $itemDesc->item_id = $request->get('item_id');
+            $itemDesc->desc_id = $desc;
+            $itemDesc->save();
+        }
+        return redirect('/items/show/'.$request->get('item_id'));
     }
 
     /**
@@ -78,8 +99,12 @@ class ItemDescController extends Controller
      * @param  \App\Item_desc  $item_desc
      * @return \Illuminate\Http\Response
      */
-    public function destroy(Item_desc $item_desc)
+    public function destroy($item_id, $desc_id)
     {
-        //
+        DB::table('item_descs')
+            ->where('item_descs.item_id', '=', $item_id)
+            ->where('item_descs.desc_id', '=', $desc_id)
+            ->delete();
+        return back();
     }
 }

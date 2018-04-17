@@ -39,9 +39,7 @@
 
                 <input id="file-upload" name="img" type="file" style=" display: none;"/>
 
-                <div class="col-md-6">
-                    <img src="/images/categories/{{ $category->img }}" style="height: 150px">
-                </div>
+
                 @if ($errors->has('img'))
                     <span class="help-block">
                    <strong>{{ $errors->first('img') }}</strong>

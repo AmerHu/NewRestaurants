@@ -29,17 +29,6 @@
                 </span>
             @endif
         </div>
-
-
-        <div class="form-group">
-            <label>Description</label>
-            <input type="text" class="form-control" name="description" id="description"/>
-            @if ($errors->has('description'))
-                <span class="help-block">
-                    <strong>{{ $errors->first('description') }}</strong>
-                </span>
-            @endif
-        </div>
         <div class="form-group">
             <label>Category</label>
             <select name="cate_id" class="form-control" style="height:36px">
@@ -60,7 +49,7 @@
 
         <div class="form-group">
             <label>Image</label>
-            <input type="file" name="img" id="img"/>
+            <input id="file-upload" type="file" name="img" id="img"/>
             @if ($errors->has('img'))
                 <span class="help-block">
                     <strong>{{ $errors->first('img') }}</strong>

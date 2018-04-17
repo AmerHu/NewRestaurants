@@ -4,7 +4,7 @@ namespace App\Http\Controllers;
 
 use App\Extra;
 use App\Items;
-use App\SubItem;
+use App\SubItems;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\DB;
 
@@ -28,7 +28,16 @@ class SubItemController extends Controller
     public function create($id)
     {
         $item = Items::find($id);
-        $extras = Extra::all();
+
+//        $extra_id = DB::table('sub_items')->where('item_id', $id)->pluck('extra_id')->toArray();
+//
+//        if ($extra_id !== null) {
+//
+//            $extras = Extra::where('id', '!=', $extra_id)->get();
+//
+//        } else {
+            $extras = Extra::all();
+//        }
         return view('subitem.create', compact('extras', 'item'));
     }
 
@@ -42,12 +51,12 @@ class SubItemController extends Controller
     {
         $extras = $request->get('extra_id');
         foreach ($extras as $extra) {
-            $subItem = new SubItem;
+            $subItem = new SubItems();
             $subItem->item_id = $request->get('item_id');
             $subItem->extra_id = $extra;
             $subItem->save();
         }
-        return redirect('/items/admin');
+        return redirect('/items/show/'.$request->get('item_id'));
     }
 
     /**
@@ -79,7 +88,7 @@ class SubItemController extends Controller
      * @param  \App\SubItem $subItem
      * @return \Illuminate\Http\Response
      */
-    public function update(Request $request, SubItem $subItem)
+    public function update(Request $request, SubItems $subItem)
     {
         //
     }
@@ -90,12 +99,13 @@ class SubItemController extends Controller
      * @param  \App\SubItem $subItem
      * @return \Illuminate\Http\Response
      */
-    public function destroy($extra_id, $item_id)
+    public function destroy($desc_id, $item_id)
     {
         DB::table('sub_items')
             ->where('sub_items.item_id', '=', $item_id)
-            ->where('sub_items.extra_id', '=', $extra_id)
+            ->where('sub_items.extra_id', '=', $desc_id)
             ->delete();
-        return redirect('/items/admin');
+        return back();
+
     }
 }

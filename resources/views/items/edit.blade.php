@@ -42,16 +42,7 @@
                 </span>
             @endif
         </div>
-        <div class="form-group">
-            <label>Description</label>
-            <input type="text" class="form-control" name="description" id="description" value = {{$items->description}}>
-            @if ($errors->has('description'))
-                <span class="help-block">
-                    <strong>{{ $errors->first('description') }}</strong>
-                </span>
-            @endif
-        </div>
-        <div class="form-group">
+           <div class="form-group">
             <label>Category</label>
             <select name="cate_id" class="form-control" style="height:36px">
                 <option value="{{ $items->cate_id }}">NO Change Category</option>
