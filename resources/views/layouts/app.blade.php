@@ -39,59 +39,62 @@
             <a class="navbar-brand" href="./"><img src="/images/logo.png" alt="Logo"></a>
             <a class="navbar-brand hidden" href="./"><img src="/images/logo2.png" alt="Logo"></a>
         </div>
+            <div id="main-menu" class="main-menu collapse navbar-collapse">
+                <ul class="nav navbar-nav">
+                    @if(Auth::check())
 
-        <div id="main-menu" class="main-menu collapse navbar-collapse">
-            <ul class="nav navbar-nav">
-                <h3 class="menu-title">Controls</h3><!-- /.menu-title -->
-                <li class="menu-item-has-children dropdown">
-                    <a href="#" class="dropdown-toggle" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">Category</a>
-                    <ul class="sub-menu children active dropdown-menu">
-                        <li>
-                            <a href='/category/admin'> Show Category</a>
-                        </li>
-                        <li>
-                            <a href='/category/create'> New Category</a>
-                        </li>
+                    <h3 class="menu-title">Controls</h3><!-- /.menu-title -->
+                    <li class="menu-item-has-children dropdown">
+                        <a href="#" class="dropdown-toggle" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">Category</a>
+                        <ul class="sub-menu children active dropdown-menu">
+                            <li>
+                                <a href='/category/admin'> Show Category</a>
+                            </li>
+                            <li>
+                                <a href='/category/create'> New Category</a>
+                            </li>
 
-                    </ul>
-                </li>
-                <li class="menu-item-has-children dropdown">
-                    <a href="#" class="dropdown-toggle" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false"> Items</a>
-                    <ul class="sub-menu children active dropdown-menu">
-                        <li>
-                            <a href='/items/admin'> Show Items</a>
-                        </li>
-                        <li>
-                            </i><a href='/items/create'> New Item</a>
-                        </li>
+                        </ul>
+                    </li>
+                    <li class="menu-item-has-children dropdown">
+                        <a href="#" class="dropdown-toggle" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false"> Items</a>
+                        <ul class="sub-menu children active dropdown-menu">
+                            <li>
+                                <a href='/items/admin'> Show Items</a>
+                            </li>
+                            <li>
+                                </i><a href='/items/create'> New Item</a>
+                            </li>
 
-                    </ul>
-                </li>
+                        </ul>
+                    </li>
 
-                <li class="menu-item-has-children dropdown">
-                    <a href="#" class="dropdown-toggle" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false"> Offers</a>
-                    <ul class="sub-menu children active dropdown-menu">
-                        <li>
-                           <a href='/offers/admin'> Show Offers</a>
-                        </li>
-                        <li>
-                           <a href='/offers/create'> New Offers</a>
-                        </li>
-                    </ul>
-                </li>
+                    <li class="menu-item-has-children dropdown">
+                        <a href="#" class="dropdown-toggle" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false"> Offers</a>
+                        <ul class="sub-menu children active dropdown-menu">
+                            <li>
+                                <a href='/offers/admin'> Show Offers</a>
+                            </li>
+                            <li>
+                                <a href='/offers/create'> New Offers</a>
+                            </li>
+                        </ul>
+                    </li>
 
-                <li class="menu-item-has-children dropdown">
-                    <a href="#" class="dropdown-toggle" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false"> <i class="menu-icon fa fa-laptop"></i>Category</a>
-                    <ul class="sub-menu children active dropdown-menu">
-                        <li>
-                            <i class="fa fa-puzzle-piece"></i><a href='/items/create'> New Items</a>
-                        </li>
-                    </ul>
-                </li>
+                    <li class="menu-item-has-children dropdown">
+                        <a href="#" class="dropdown-toggle" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false"> <i class="menu-icon fa fa-laptop"></i>Category</a>
+                        <ul class="sub-menu children active dropdown-menu">
+                            <li>
+                                <i class="fa fa-puzzle-piece"></i><a href='/items/create'> New Items</a>
+                            </li>
+                        </ul>
+                    </li>
+
+                    @endif
+                </ul>
+            </div>
 
 
-            </ul>
-        </div>
     </nav>
 </aside><!-- /#left-panel -->
 
@@ -108,6 +111,9 @@
 
             <div class="col-sm-7">
                 <a id="menuToggle" class="menutoggle pull-left"><i class="fa fa fa-tasks"></i></a>
+
+
+
             </div>
 
         </div>

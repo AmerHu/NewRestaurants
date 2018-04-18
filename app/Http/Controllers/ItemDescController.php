@@ -7,6 +7,7 @@ use App\Item_desc;
 use App\Items;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\DB;
+use Flash;
 
 class ItemDescController extends Controller
 {
@@ -28,26 +29,36 @@ class ItemDescController extends Controller
     public function create($id)
     {
         $item = Items::find($id);
-//
-//        $desc_id = DB::table('sub_items')->where('item_id', $id)->pluck('extra_id')->toArray();
-//
-//        if ($desc_id !== null) {
-//
-//            $descriptions = Description::where('id', '!=', $desc_id)->get();
-//
-//        } else {
-            $descriptions= Description::all();
-//        }
-        return view('desc_item.create', compact('descriptions', 'item'));
+        $desc_id = DB::table('sub_items')->where('item_id', $id)->pluck('extra_id')->toArray();
+
+        if ($desc_id == null) {
+            $descriptions = Description::all();
+        } else {
+            $descriptions = DB::table('descriptions')
+                ->whereNotIn('id', function ($query)use ($id) {
+                    $query->select('desc_id')
+                        ->from('item_descs')
+                    ->where('item_descs.item_id',$id);
+                })
+                ->get();
+        }
+        $count =count($descriptions);
+        if ($count == 0) {
+            flash('Sorry! This no more Description.')->error();
+            return view('desc_item.create', compact('descriptions','count'));
+        } else {
+            return view('desc_item.create', compact('descriptions', 'item','count'));
+        }
     }
 
     /**
      * Store a newly created resource in storage.
      *
-     * @param  \Illuminate\Http\Request  $request
+     * @param  \Illuminate\Http\Request $request
      * @return \Illuminate\Http\Response
      */
-    public function store(Request $request)
+    public
+    function store(Request $request)
     {
         $descriptions = $request->get('extra_id');
         foreach ($descriptions as $desc) {
@@ -56,16 +67,17 @@ class ItemDescController extends Controller
             $itemDesc->desc_id = $desc;
             $itemDesc->save();
         }
-        return redirect('/items/show/'.$request->get('item_id'));
+        return redirect('/items/show/' . $request->get('item_id'));
     }
 
     /**
      * Display the specified resource.
      *
-     * @param  \App\Item_desc  $item_desc
+     * @param  \App\Item_desc $item_desc
      * @return \Illuminate\Http\Response
      */
-    public function show(Item_desc $item_desc)
+    public
+    function show(Item_desc $item_desc)
     {
         //
     }
@@ -73,10 +85,11 @@ class ItemDescController extends Controller
     /**
      * Show the form for editing the specified resource.
      *
-     * @param  \App\Item_desc  $item_desc
+     * @param  \App\Item_desc $item_desc
      * @return \Illuminate\Http\Response
      */
-    public function edit(Item_desc $item_desc)
+    public
+    function edit(Item_desc $item_desc)
     {
         //
     }
@@ -84,11 +97,12 @@ class ItemDescController extends Controller
     /**
      * Update the specified resource in storage.
      *
-     * @param  \Illuminate\Http\Request  $request
-     * @param  \App\Item_desc  $item_desc
+     * @param  \Illuminate\Http\Request $request
+     * @param  \App\Item_desc $item_desc
      * @return \Illuminate\Http\Response
      */
-    public function update(Request $request, Item_desc $item_desc)
+    public
+    function update(Request $request, Item_desc $item_desc)
     {
         //
     }
@@ -96,10 +110,11 @@ class ItemDescController extends Controller
     /**
      * Remove the specified resource from storage.
      *
-     * @param  \App\Item_desc  $item_desc
+     * @param  \App\Item_desc $item_desc
      * @return \Illuminate\Http\Response
      */
-    public function destroy($item_id, $desc_id)
+    public
+    function destroy($item_id, $desc_id)
     {
         DB::table('item_descs')
             ->where('item_descs.item_id', '=', $item_id)

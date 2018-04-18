@@ -73,6 +73,7 @@ class ItemsController extends Controller
     public function show($id)
     {
         $item = Items::find($id);
+
         $extras = DB::table('extras')
             ->select('extras.id', 'extras.name')
             ->join('sub_items','extra_id','=','extras.id')
@@ -84,8 +85,6 @@ class ItemsController extends Controller
             ->join('item_descs','desc_id','=','descriptions.id')
             ->where('item_id', '=', $id)
             ->get();
-
-
 
         $category = Category::where('id',$item->cate_id)->pluck('name_en')->first();
 

@@ -6,7 +6,7 @@ use App\Extra;
 use App\Items;
 use App\SubItems;
 use Illuminate\Http\Request;
-use Illuminate\Support\Facades\DB;
+use DB;
 
 class SubItemController extends Controller
 {
@@ -20,7 +20,9 @@ class SubItemController extends Controller
         //
     }
 
+
     /**
+     *
      * Show the form for creating a new resource.
      *
      * @return \Illuminate\Http\Response
@@ -28,17 +30,24 @@ class SubItemController extends Controller
     public function create($id)
     {
         $item = Items::find($id);
-
-//        $extra_id = DB::table('sub_items')->where('item_id', $id)->pluck('extra_id')->toArray();
-//
-//        if ($extra_id !== null) {
-//
-//            $extras = Extra::where('id', '!=', $extra_id)->get();
-//
-//        } else {
+        $extra_id = DB::table('sub_items')->where('item_id', $id)->get()->pluck('extra_id');
+        if ($extra_id == null) {
             $extras = Extra::all();
-//        }
-        return view('subitem.create', compact('extras', 'item'));
+        } else {
+
+            $extras = DB::table('extras')
+                ->whereNotIn('id',function ($query) use ($id) {
+                    $query->select('extra_id')
+                        ->from('sub_items')
+                        ->where('sub_items.item_id',$id);
+                })
+                ->get();
+        }
+        if (count($extras) == 0) {
+
+        } else {
+            return view('subitem.create', compact('extras', 'item'));
+        }
     }
 
     /**
@@ -56,7 +65,7 @@ class SubItemController extends Controller
             $subItem->extra_id = $extra;
             $subItem->save();
         }
-        return redirect('/items/show/'.$request->get('item_id'));
+        return redirect('/items/show/' . $request->get('item_id'));
     }
 
     /**
