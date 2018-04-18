@@ -1,4 +1,7 @@
 @extends('layouts.app')
+@section('header')
+    <h2> Items</h2>
+@endsection
 
 @section('content')
     <div class="row">

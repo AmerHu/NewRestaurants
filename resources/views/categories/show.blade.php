@@ -1,17 +1,28 @@
 @extends('layouts.app')
 
-@section('content')
-    <h3>Name : {{ $user->name }}</h3>
-    <h3>Email : {{ $user->email}}</h3>
-    @foreach($information as $info)
-    <h3>Gender : {{ $info->gender}}</h3>
-    @endforeach
-    <h3>Type : {{ $user->type }}</h3>
+@section('header')
+    <h2>Categories</h2>
+@endsection
 
-    <a class="btn btn-primary" type="button" href="/user/edit/{{$user->id}}/edit">edit</a>
-    <a class="btn btn-danger" type="button" href="/user/delete/{{$user->id}}"
-       onclick="return confirm('Are you sure you want to delete this user?')">
-        Delete
-    </a>
+
+@section('content')
+
+    <div class="row">
+
+    <div class="col-md-6">
+
+        <h3>Arabic Name :{{ $category->name_ar }} </h3>
+        <h3>English Name :{{ $category->name_en }}</h3>
+    </div>
+    <div class="col-md-6">
+        <img src="/images/categories/{{ $category->img }}" style="height:  150px">
+    </div>
+    </div>
+
+    <div class="row">
+
+        <a class="btn btn-primary" type="button" href="/category/edit/{{$category->id}}">edit</a>
+        <a class="btn btn-danger" type="button" href="/category/delete/{{$category->id}}">Delete</a>
+    </div>
 
 @endsection

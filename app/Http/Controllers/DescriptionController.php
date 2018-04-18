@@ -15,7 +15,7 @@ class DescriptionController extends Controller
      */
     public function index()
     {
-        $descriptions = Description::orderBy('id');
+        $descriptions = Description::all();
         return view('descriptions.index', compact('descriptions'));
     }
 

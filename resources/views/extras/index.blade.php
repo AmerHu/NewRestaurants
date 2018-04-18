@@ -1,5 +1,7 @@
 @extends('layouts.app')
-
+@section('header')
+    <h2>Extra Items</h2>
+@endsection
 @section('content')
     <div class="row">
 
@@ -12,11 +14,4 @@
             <a class="btn btn-primary btn-block" type="button" href='/extra/create'> New Extra</a>
         </div>
     </div>
-
-    <div class="row">
-        <div class="text-center">
-            {{$extras->links()}}
-        </div>
-    </div>
-
 @endsection

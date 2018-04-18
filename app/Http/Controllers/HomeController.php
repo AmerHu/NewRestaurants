@@ -2,7 +2,9 @@
 
 namespace App\Http\Controllers;
 
+use App\Category;
 use Illuminate\Http\Request;
+use Illuminate\Support\Facades\DB;
 
 class HomeController extends Controller
 {
@@ -23,6 +25,12 @@ class HomeController extends Controller
      */
     public function index()
     {
-        return view('home');
+        $category = DB::table('categories')->count('id');
+        $item = DB::table('items')->count();
+        $offer = DB::table('offers')->count();
+        $extras = DB::table('extras')->count();
+        $user = DB::table('users')->count();
+        $desc = DB::table('users')->count();
+        return view('home',compact('category','item','offer','user','extras','desc'));
     }
 }

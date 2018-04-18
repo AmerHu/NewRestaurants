@@ -1,4 +1,8 @@
 @extends('layouts.app')
+@section('header')
+    <h2> Items</h2>
+@endsection
+
 @section('content')
     <form method="post" action="/items/create" enctype="multipart/form-data">
         {{ csrf_field() }}

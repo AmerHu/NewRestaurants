@@ -1,4 +1,10 @@
 @extends('layouts.app')
+@section('header')
+    <h2>Description</h2>
+@endsection
+
+
+
 @section('content')
     <div class="row">
         <div class="col-md-6">

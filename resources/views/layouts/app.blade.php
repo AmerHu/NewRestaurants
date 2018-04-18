@@ -26,26 +26,25 @@
 
 </head>
 <body>
-
-
-
 <aside id="left-panel" class="left-panel">
     <nav class="navbar navbar-expand-sm navbar-default">
 
         <div class="navbar-header">
-            <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#main-menu" aria-controls="main-menu" aria-expanded="false" aria-label="Toggle navigation">
+            <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#main-menu"
+                    aria-controls="main-menu" aria-expanded="false" aria-label="Toggle navigation">
                 <i class="fa fa-bars"></i>
             </button>
             <a class="navbar-brand" href="./"><img src="/images/logo.png" alt="Logo"></a>
             <a class="navbar-brand hidden" href="./"><img src="/images/logo2.png" alt="Logo"></a>
         </div>
-            <div id="main-menu" class="main-menu collapse navbar-collapse">
-                <ul class="nav navbar-nav">
-                    @if(Auth::check())
+        <div id="main-menu" class="main-menu collapse navbar-collapse">
+            <ul class="nav navbar-nav">
+                @if(Auth::check())
 
                     <h3 class="menu-title">Controls</h3><!-- /.menu-title -->
                     <li class="menu-item-has-children dropdown">
-                        <a href="#" class="dropdown-toggle" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">Category</a>
+                        <a href="#" class="dropdown-toggle" data-toggle="dropdown" aria-haspopup="true"
+                           aria-expanded="false">Category</a>
                         <ul class="sub-menu children active dropdown-menu">
                             <li>
                                 <a href='/category/admin'> Show Category</a>
@@ -57,7 +56,8 @@
                         </ul>
                     </li>
                     <li class="menu-item-has-children dropdown">
-                        <a href="#" class="dropdown-toggle" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false"> Items</a>
+                        <a href="#" class="dropdown-toggle" data-toggle="dropdown" aria-haspopup="true"
+                           aria-expanded="false"> Items</a>
                         <ul class="sub-menu children active dropdown-menu">
                             <li>
                                 <a href='/items/admin'> Show Items</a>
@@ -70,7 +70,33 @@
                     </li>
 
                     <li class="menu-item-has-children dropdown">
-                        <a href="#" class="dropdown-toggle" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false"> Offers</a>
+                        <a href="#" class="dropdown-toggle" data-toggle="dropdown" aria-haspopup="true"
+                           aria-expanded="false"> Description</a>
+                        <ul class="sub-menu children active dropdown-menu">
+                            <li>
+                                <a href='/desc/admin'> Show Description</a>
+                            </li>
+                            <li>
+                                <a href='/desc/create'> New Description</a>
+                            </li>
+                        </ul>
+                    </li>
+                    <li class="menu-item-has-children dropdown">
+                        <a href="#" class="dropdown-toggle" data-toggle="dropdown" aria-haspopup="true"
+                           aria-expanded="false"> Extra Items</a>
+                        <ul class="sub-menu children active dropdown-menu">
+                            <li>
+                                <a href='/extra/admin'> Show Extra Items</a>
+                            </li>
+                            <li>
+                                <a href='/extra/create'> New Extra Items</a>
+                            </li>
+                        </ul>
+                    </li>
+
+                    <li class="menu-item-has-children dropdown">
+                        <a href="#" class="dropdown-toggle" data-toggle="dropdown" aria-haspopup="true"
+                           aria-expanded="false"> Offers</a>
                         <ul class="sub-menu children active dropdown-menu">
                             <li>
                                 <a href='/offers/admin'> Show Offers</a>
@@ -81,18 +107,11 @@
                         </ul>
                     </li>
 
-                    <li class="menu-item-has-children dropdown">
-                        <a href="#" class="dropdown-toggle" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false"> <i class="menu-icon fa fa-laptop"></i>Category</a>
-                        <ul class="sub-menu children active dropdown-menu">
-                            <li>
-                                <i class="fa fa-puzzle-piece"></i><a href='/items/create'> New Items</a>
-                            </li>
-                        </ul>
-                    </li>
 
-                    @endif
-                </ul>
-            </div>
+
+                @endif
+            </ul>
+        </div>
 
 
     </nav>
@@ -109,11 +128,11 @@
 
         <div class="header-menu">
 
-            <div class="col-sm-7">
+            <div class="col-sm-3">
                 <a id="menuToggle" class="menutoggle pull-left"><i class="fa fa fa-tasks"></i></a>
-
-
-
+            </div>
+            <div class="col-sm-9">
+                @yield('header')
             </div>
 
         </div>
@@ -136,36 +155,36 @@
     </div>
 </div>
 
-    <!-- Scripts -->
-    <script src="{{ asset('js/vendor/jquery-2.1.4.min.js') }}"></script>
-    <script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.12.3/umd/popper.min.js"></script>
-    <script src="{{ asset('js/plugins.js') }}"></script>
-    <script src="{{ asset('js/main.js') }}"></script>
+<!-- Scripts -->
+<script src="{{ asset('js/vendor/jquery-2.1.4.min.js') }}"></script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.12.3/umd/popper.min.js"></script>
+<script src="{{ asset('js/plugins.js') }}"></script>
+<script src="{{ asset('js/main.js') }}"></script>
 
 
-    <script src="{{ asset('js/lib/chart-js/Chart.bundle.js') }}"></script>
-    <script src="{{ asset('js/dashboard.js') }}"></script>
-    <script src="{{ asset('js/widgets.js') }}"></script>
-    <script src="{{ asset('js/lib/vector-map/jquery.vmap.js') }}"></script>
-    <script src="{{ asset('js/lib/vector-map/jquery.vmap.min.js') }}"></script>
-    <script src="{{ asset('js/lib/vector-map/jquery.vmap.sampledata.js') }}"></script>
-    <script src="{{ asset('js/lib/vector-map/country/jquery.vmap.world.js') }}"></script>
-    <script>
-        (function ($) {
-            "use strict";
-            jQuery('#vmap').vectorMap({
-                map: 'world_en',
-                backgroundColor: null,
-                color: '#ffffff',
-                hoverOpacity: 0.7,
-                selectedColor: '#1de9b6',
-                enableZoom: true,
-                showTooltip: true,
-                values: sample_data,
-                scaleColors: ['#1de9b6', '#03a9f5'],
-                normalizeFunction: 'polynomial'
-            });
-        })(jQuery);
-    </script>
+<script src="{{ asset('js/lib/chart-js/Chart.bundle.js') }}"></script>
+<script src="{{ asset('js/dashboard.js') }}"></script>
+<script src="{{ asset('js/widgets.js') }}"></script>
+<script src="{{ asset('js/lib/vector-map/jquery.vmap.js') }}"></script>
+<script src="{{ asset('js/lib/vector-map/jquery.vmap.min.js') }}"></script>
+<script src="{{ asset('js/lib/vector-map/jquery.vmap.sampledata.js') }}"></script>
+<script src="{{ asset('js/lib/vector-map/country/jquery.vmap.world.js') }}"></script>
+<script>
+    (function ($) {
+        "use strict";
+        jQuery('#vmap').vectorMap({
+            map: 'world_en',
+            backgroundColor: null,
+            color: '#ffffff',
+            hoverOpacity: 0.7,
+            selectedColor: '#1de9b6',
+            enableZoom: true,
+            showTooltip: true,
+            values: sample_data,
+            scaleColors: ['#1de9b6', '#03a9f5'],
+            normalizeFunction: 'polynomial'
+        });
+    })(jQuery);
+</script>
 </body>
 </html>

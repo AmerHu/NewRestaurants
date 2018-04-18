@@ -11,6 +11,9 @@
         cursor: pointer;
     }
 </style>
+@section('header')
+    <h2> Items</h2>
+@endsection
 @section('content')
 
     <form method="post" action="/items/edit/{{$items->id}}" enctype="multipart/form-data">

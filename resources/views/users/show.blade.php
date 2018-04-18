@@ -1,4 +1,7 @@
 @extends('layouts.app')
+@section('header')
+    <h2>Users</h2>
+@endsection
 
 @section('content')
     <h3>Name : {{ $user->name }}</h3>

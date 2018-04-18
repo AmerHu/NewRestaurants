@@ -1,14 +1,24 @@
 @extends('layouts.app')
-
+@section('header')
+    <h2> Items</h2>
+@endsection
 @section('content')
     <div class="row">
-
-        <div class="col-lg-8">
-            @foreach($items as $item)
-                @include('items.item')
-            @endforeach
-        </div>
+        @foreach($items as $item)
+            @include('items.item')
+            <br/>
+            <br/>
+            <br/>
+            <br/>
+            <br/>
+            <br/>
+            <br/>
+            <br/>
+            <br/>
+            <br/>
+            <br/>
+            <br/>
+            <br/>
+        @endforeach
     </div>
-
-
 @endsection

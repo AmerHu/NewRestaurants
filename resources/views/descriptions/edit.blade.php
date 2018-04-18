@@ -1,4 +1,10 @@
 @extends('layouts.app')
+@section('header')
+    <h2>Description</h2>
+@endsection
+
+
+
 @section('content')
 
     <form method="post" action="/desc/edit/{{$description->id}}" enctype="multipart/form-data">

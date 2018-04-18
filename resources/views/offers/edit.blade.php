@@ -11,6 +11,10 @@
         cursor: pointer;
     }
 </style>
+@section('header')
+    <h2>Offers</h2>
+@endsection
+
 @section('content')
 
     <form method="post" action="/offers/edit/{{$offer->id}}" enctype="multipart/form-data">

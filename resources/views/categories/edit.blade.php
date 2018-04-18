@@ -10,7 +10,13 @@
         cursor: pointer;
     }
 </style>
+
+@section('header')
+    <h2>Categories</h2>
+@endsection
+
 @section('content')
+
     <form method="post" action="/category/edit/{{$category->id}}" enctype="multipart/form-data">
         {{ csrf_field() }}
         <div class="form-group">

@@ -1,14 +1,19 @@
 @extends('layouts.app')
+@section('header')
+    <h2>Description</h2>
+@endsection
+
+
 
 @section('content')
     <div class="row">
-        <div class="col-lg-8">
+        <h1>Description</h1>
+        <hr/>
+        <div class="col-lg-12">
             @foreach($descriptions as $description)
                 @include('descriptions.description')
+                <hr/>
             @endforeach
-        </div>
-        <div class="col-md-4">
-            <a class="btn btn-primary btn-block" type="button" href='/desc/create'>Crate New Description</a>
         </div>
     </div>
 

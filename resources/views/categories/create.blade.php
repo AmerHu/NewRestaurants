@@ -1,4 +1,9 @@
 @extends('layouts.app')
+
+@section('header')
+    <h2>Categories</h2>
+@endsection
+
 @section('content')
     <form method="post" action="/category/create" enctype="multipart/form-data">
         {{ csrf_field() }}

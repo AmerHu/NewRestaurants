@@ -11,6 +11,10 @@
         cursor: pointer;
     }
 </style>
+@section('header')
+    <h2>Extra Items</h2>
+@endsection
+
 @section('content')
 
     <form method="post" action="/extra/create/" enctype="multipart/form-data">

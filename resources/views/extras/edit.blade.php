@@ -1,4 +1,7 @@
 @extends('layouts.app')
+@section('header')
+    <h2>Extra Items</h2>
+@endsection
 @section('content')
     <form method="post" action="/extra/edit/{{$extra->id}}" enctype="multipart/form-data">
         {{ csrf_field() }}

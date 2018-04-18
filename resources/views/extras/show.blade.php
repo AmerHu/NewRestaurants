@@ -1,5 +1,8 @@
 @extends('layouts.app')
 
+@section('header')
+    <h2>Extra Items</h2>
+@endsection
 @section('content')
 <div class="row">
     <div class="col-md-6">    <h3>Arabic Name : {{ $extra->name}}</h3>

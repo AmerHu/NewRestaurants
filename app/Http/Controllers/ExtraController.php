@@ -11,7 +11,7 @@ class ExtraController extends Controller
 
     public function index()
     {
-        $extras = Extra::orderBy('id')->paginate(4);
+        $extras = Extra::all();
         return view('extras.index', compact('extras'));
     }
 
