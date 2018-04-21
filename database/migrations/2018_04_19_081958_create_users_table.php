@@ -18,9 +18,12 @@ class CreateUsersTable extends Migration
             $table->string('name');
             $table->string('email')->unique();
             $table->string('password');
-            $table->string('type');
+            $table->integer('type_id')->unsigned()->default(2);
             $table->rememberToken();
             $table->timestamps();
+        });
+        Schema::table('users', function ($table) {
+            $table->foreign('type_id')->references('id')->on('users_types')->onDelete('cascade');
         });
     }
 
