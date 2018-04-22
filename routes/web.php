@@ -98,3 +98,22 @@ Route::post('/desitem/edit/{id}', 'ItemDescController@update');
 Route::get('/desitem/delete/{item_id}/{desc_id}', 'ItemDescController@destroy');
 Route::get('/desitem/create/{id}', 'ItemDescController@create');
 Route::post('/desitem/create', 'ItemDescController@store');
+
+//compo
+
+Route::get('/compo/admin', 'CompoOffersController@index');
+Route::get('/compo/show/{id}', 'CompoOffersController@show');
+Route::get('/compo/edit/{id}', 'CompoOffersController@edit');
+Route::post('/compo/edit/{id}', 'CompoOffersController@update');
+Route::get('/compo/delete/{id}', 'CompoOffersController@destroy');
+Route::get('/compo/create', 'CompoOffersController@create');
+Route::post('/compo/create', 'CompoOffersController@store');
+
+
+//compo item
+
+Route::get('/compoitem/edit/{id}', 'ItemsOfferController@edit');
+Route::post('/compoitem/edit/{id}', 'ItemsOfferController@update');
+Route::get('/compoitem/delete/{item_id}/{offer_id}', 'ItemsOfferController@destroy');
+Route::get('/compoitem/create/{id}', 'ItemsOfferController@create');
+Route::post('/compoitem/create', 'ItemsOfferController@store');

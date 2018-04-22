@@ -41,24 +41,19 @@ class UserController extends Controller
         $this->validate(
             request(), [
             'name' => 'required|min:5',
-            'type' => 'required|min:5',
+            'type_id' => 'required|min:5',
             'email' => 'required|min:5|email',
             'gender' => 'required|min:5',
         ]);
-        User::create([
+
+        (new \App\User)->create([
                 'name' => request('name'),
-                'type' => request('type'),
+                'type_id' => request('type_id'),
                 'email' => request('email'),
                 'password' => bcrypt($request['password']),
+                'active' => 0,
 
             ]);
-        $user_id = DB::table('users')->max('id');
-        Information::create([
-                'user_id' => $user_id,
-                'name' => request('name'),
-                'gender' => request('gender'),
-            ]);
-
         return redirect('/user/admin');
     }
 
@@ -86,11 +81,7 @@ class UserController extends Controller
     public function edit($id)
     {
         $user = User::find($id);
-        $information = DB::table('information')
-            ->where('user_id', $id)
-            ->get();
-
-        return view('users.edit', compact('user', 'information'));
+            return view('users.edit', compact('user', 'information'));
     }
 
     /**
@@ -106,15 +97,12 @@ class UserController extends Controller
             request(), [
             'name' => 'required|min:5',
             'email' => 'required|min:5',
-            'type' => 'required|min:5',
+            'type_id' => 'required|min:5',
         ]);
         User::whereId($id)->update([
             'name' => request('name'),
-            'type' => request('type'),
+            'type_id' => request('type'),
             'email' => request('email'),
-        ]);
-        DB::table('information')->where('user_id', $id)->update([
-            'gender' => request('gender'),
         ]);
         return redirect('/user/admin');
     }
@@ -127,7 +115,6 @@ class UserController extends Controller
      */
     public function destroy($id)
     {
-        DB::table('information')->where('user_id', $id)->delete();
         DB::table('users')->where('id', $id)->delete();
         return redirect('/user/admin');
     }

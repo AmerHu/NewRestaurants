@@ -5,13 +5,11 @@
 @section('content')
     <div class="row">
 
-        <div class="col-lg-8">
-            @foreach($extras as $extra)
-                @include('extras.extra')
-            @endforeach
-        </div>
-        <div class="col-md-4">
+        @foreach($extras as $extra)
+            @include('extras.extra')
+        @endforeach
+        @if(( $extras->count())=== 0)
             <a class="btn btn-primary btn-block" type="button" href='/extra/create'> New Extra</a>
-        </div>
+        @endif
     </div>
 @endsection

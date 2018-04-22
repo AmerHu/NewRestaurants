@@ -17,5 +17,13 @@ class DatabaseSeeder extends Seeder
            [ 'Type' => 'Waiter'],
            [ 'Type' => 'Waiter'],
         ]);
+        DB::table('users')->insert([
+            'name' => "admin",
+            'email' => 'admin@test.com',
+            'password' =>  bcrypt('123123'),
+            'type_id' => 1,
+            'isAdmin' => true,
+            'active' => true,
+        ]);
     }
 }

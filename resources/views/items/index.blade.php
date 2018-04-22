@@ -20,5 +20,9 @@
             <br/>
             <br/>
         @endforeach
+            @if(( $items->count())=== 0)
+                <a class="btn btn-primary btn-block" type="button" href='/items/create'>Offers New User</a>
+            @endif
     </div>
+
 @endsection
