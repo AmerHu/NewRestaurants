@@ -100,8 +100,9 @@ class ExtraController extends Controller
      * @param  \App\Extra  $extra
      * @return \Illuminate\Http\Response
      */
-    public function destroy(Extra $extra)
+    public function destroy($id)
     {
-        //
+        DB::table('extras')->where('id', $id)->delete();
+        return redirect('/extra/admin');
     }
 }

@@ -97,8 +97,9 @@ class DescriptionController extends Controller
      * @param  \App\Description  $description
      * @return \Illuminate\Http\Response
      */
-    public function destroy(Description $description)
+    public function destroy($id)
     {
-        //
+        DB::table('descriptions')->where('id', $id)->delete();
+        return redirect('/desc/admin');
     }
 }

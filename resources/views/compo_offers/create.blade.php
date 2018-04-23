@@ -8,7 +8,7 @@
         {{ csrf_field() }}
 
         <div class="form-group">
-            <label>Name En</label>
+            <label>Name</label>
             <input type="text" class="form-control" name="name" id="name"/>
             @if ($errors->has('name'))
                 <span class="help-block">

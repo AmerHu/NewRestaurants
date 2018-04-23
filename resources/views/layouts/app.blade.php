@@ -25,7 +25,8 @@
     <!-- <script type="text/javascript" src="https://cdn.jsdelivr.net/html5shiv/3.7.3/html5shiv.min.js"></script> -->
 
 </head>
-<body>
+<body style="width: 99%">
+
 <aside id="left-panel" class="left-panel">
     <nav class="navbar navbar-expand-sm navbar-default">
 
@@ -34,14 +35,25 @@
                     aria-controls="main-menu" aria-expanded="false" aria-label="Toggle navigation">
                 <i class="fa fa-bars"></i>
             </button>
-            <a class="navbar-brand" href="./"><img src="/images/logo.png" alt="Logo"></a>
-            <a class="navbar-brand hidden" href="./"><img src="/images/logo2.png" alt="Logo"></a>
+            <a class="navbar-brand" href="/"><img src="/images/logo.png" alt="Logo"></a>
+            <a class="navbar-brand hidden" href="/"><img src="/images/logo2.png" alt="Logo"></a>
         </div>
         <div id="main-menu" class="main-menu collapse navbar-collapse">
             <ul class="nav navbar-nav">
                 @if(Auth::check())
-
                     <h3 class="menu-title">Controls</h3><!-- /.menu-title -->
+                    <li class="menu-item-has-children dropdown">
+                        <a href="#" class="dropdown-toggle" data-toggle="dropdown" aria-haspopup="true"
+                           aria-expanded="false"> User</a>
+                        <ul class="sub-menu children active dropdown-menu">
+                            <li>
+                                <a href='/user/admin'> Show User</a>
+                            </li>
+                            <li>
+                                <a href='/user/create'> New User</a>
+                            </li>
+                        </ul>
+                    </li>
                     <li class="menu-item-has-children dropdown">
                         <a href="#" class="dropdown-toggle" data-toggle="dropdown" aria-haspopup="true"
                            aria-expanded="false">Category</a>
@@ -106,7 +118,18 @@
                             </li>
                         </ul>
                     </li>
-
+                    <li class="menu-item-has-children dropdown">
+                        <a href="#" class="dropdown-toggle" data-toggle="dropdown" aria-haspopup="true"
+                           aria-expanded="false">Compo Offers</a>
+                        <ul class="sub-menu children active dropdown-menu">
+                            <li>
+                                <a href='/compo/admin'> Show Compo Offers</a>
+                            </li>
+                            <li>
+                                <a href='/compo/create'> New Compo Offers</a>
+                            </li>
+                        </ul>
+                    </li>
 
 
                 @endif
@@ -131,9 +154,16 @@
             <div class="col-sm-3">
                 <a id="menuToggle" class="menutoggle pull-left"><i class="fa fa fa-tasks"></i></a>
             </div>
-            <div class="col-sm-9">
+            <div class="col-sm-7">
                 @yield('header')
             </div>
+            @if(Auth::check())
+                <div class="col-sm-2">
+                    <h3>
+                        <a href="/logout">Logout</a>
+                    </h3>
+                </div>
+            @endif
 
         </div>
 

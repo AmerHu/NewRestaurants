@@ -11,6 +11,6 @@ class Category extends Model
         return $this->hasMany('App\Items');
     }
     protected $fillable = [
-        'name_en', 'name_ar','img',
+         'name','img',
     ];
 }

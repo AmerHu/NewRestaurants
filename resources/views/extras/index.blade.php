@@ -4,12 +4,16 @@
 @endsection
 @section('content')
     <div class="row">
-
+        <div class="offset-8 col-md-4">
+            <a class="btn btn-primary btn-block" type="button" href='/extra/create'> New Extra</a>
+        </div>
+    </div>
+    <br/>
+    <div class="row">
         @foreach($extras as $extra)
             @include('extras.extra')
+
         @endforeach
-        @if(( $extras->count())=== 0)
-            <a class="btn btn-primary btn-block" type="button" href='/extra/create'> New Extra</a>
-        @endif
+
     </div>
 @endsection

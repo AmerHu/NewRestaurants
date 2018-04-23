@@ -16,22 +16,18 @@
             @endif
         </div>
         <div class="form-group">
-            <label>Type</label>
-            <input type="text" class="form-control" name="type" id="type"/>
-            @if ($errors->has('type'))
-                <span class="help-block">
-                    <strong>{{ $errors->first('type') }}</strong>
-                </span>
-            @endif
-        </div>
-        <div class="form-group">
-            <label>gender</label>
-            <input type="text" class="form-control" name="gender" id="gender"/>
-            @if ($errors->has('gender'))
-                <span class="help-block">
-                    <strong>{{ $errors->first('count') }}</strong>
-                </span>
-            @endif
+            <label>Category</label>
+            <select name="type_id" class="form-control" style="height:36px">
+                <option>Select Vehicle</option>
+                <option value="2">Cashier</option>
+                <option value="3">Waiter</option>
+                <option value="4">Table</option>
+                @if ($errors->has('type_id'))
+                    <span class="help-block">
+                        <strong>{{ $errors->first('type_id') }}</strong>
+                    </span>
+                @endif
+            </select>
         </div>
         <div class="form-group">
             <label>E-Mail</label>
@@ -51,7 +47,6 @@
                 </span>
             @endif
         </div>
-
         <button type="submit" class="btn btn-default">Publish</button>
     </form>
 @endsection

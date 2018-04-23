@@ -4,6 +4,7 @@ namespace App\Http\Controllers;
 
 use App\Information;
 use App\User;
+use App\UsersType;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\DB;
 
@@ -16,8 +17,11 @@ class UserController extends Controller
      */
     public function index()
     {
-        $users = User::orderBy('id')->paginate(4);
-        return view('users.index', compact('users'));
+        $users = User::orderBy('id')->where('isAdmin','!=', true)->paginate(4);
+
+        $userType = UsersType::all()->pluck('Type');
+
+        return view('users.index', compact('users', 'userType'));
     }
 
     /**
@@ -27,6 +31,7 @@ class UserController extends Controller
      */
     public function create()
     {
+
         return view('users.create');
     }
 
@@ -41,19 +46,19 @@ class UserController extends Controller
         $this->validate(
             request(), [
             'name' => 'required|min:5',
-            'type_id' => 'required|min:5',
+            'type_id' => 'required',
             'email' => 'required|min:5|email',
-            'gender' => 'required|min:5',
+            'password' => 'required|min:6',
         ]);
 
-        (new \App\User)->create([
-                'name' => request('name'),
-                'type_id' => request('type_id'),
-                'email' => request('email'),
-                'password' => bcrypt($request['password']),
-                'active' => 0,
-
-            ]);
+        User::create([
+            'name' => request('name'),
+            'type_id' => request('type_id'),
+            'email' => request('email'),
+            'password' => bcrypt($request['password']),
+            'isAdmin'=>0,
+            'active'=>0,
+        ]);
         return redirect('/user/admin');
     }
 
@@ -66,10 +71,12 @@ class UserController extends Controller
     public function show($id)
     {
         $user = User::find($id);
-        $information = DB::table('information')
-            ->where('user_id', $id)
-            ->get();
-        return view('users.show', compact('user', 'information'));
+        $userType = DB::table('users_types')
+            ->where('id', '=', $user->type_id)
+            ->pluck('Type')
+            ->first();
+
+        return view('users.show', compact('user', 'userType'));
     }
 
     /**
@@ -81,7 +88,11 @@ class UserController extends Controller
     public function edit($id)
     {
         $user = User::find($id);
-            return view('users.edit', compact('user', 'information'));
+        $userType = DB::table('users_types')
+            ->where('id', '=', $user->type_id)
+            ->first();
+
+        return view('users.edit', compact('user', 'userType'));
     }
 
     /**

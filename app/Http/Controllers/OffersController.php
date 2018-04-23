@@ -39,8 +39,7 @@ class OffersController extends Controller
     public function store(Request $request)
     {
         $this->validate(request(), [
-            'name_ar' => 'required|min:5',
-            'name_en' => 'required|min:5',
+            'name' => 'required|min:5',
             'price' => 'required|min:1|numeric',
             'description' => 'required|min:5',
             'img' => 'required|min:5|mimes:jpeg,bmp,png',
@@ -52,8 +51,7 @@ class OffersController extends Controller
             $fileName = time() . '.' . $file->getClientOriginalExtension();
             $file->move(public_path('images/offers'), $fileName);
             Offers::create([
-                'name_ar' => $request['name_ar'],
-                'name_en' => $request['name_en'],
+                'name' => $request['name'],
                 'price' => $request['price'],
                 'description' => $request['description'],
                 'img' => $fileName,
@@ -72,7 +70,12 @@ class OffersController extends Controller
     public function show($id)
     {
         $offer = Offers::find($id);
-        return view('offers.show', compact('offer'));
+        $extras = DB::table('extras')
+            ->select('extras.id', 'extras.name')
+            ->join('extra_offers','extra_id','=','extras.id')
+            ->where('offer_id', '=', $id)
+            ->get();
+        return view('offers.show', compact('offer','extras'));
     }
 
     /**
@@ -108,8 +111,7 @@ class OffersController extends Controller
             $file->move(public_path('images/offers'), $fileName);
             Offers::whereId($id)->update([
 
-                'name_ar' => $request['name_ar'],
-                'name_en' => $request['name_en'],
+                'name' => $request['name'],
                 'price' => $request['price'],
                 'description' => $request['description'],
                 'img' => $fileName,
@@ -119,8 +121,7 @@ class OffersController extends Controller
             $image = DB::table('offers')->where('id', $id)->pluck('img')->first();
             Offers::whereId($id)->update([
 
-                'name_ar' => $request['name_ar'],
-                'name_en' => $request['name_en'],
+                'name' => $request['name'],
                 'price' => $request['price'],
                 'description' => $request['description'],
                 'img' => $image,
@@ -136,8 +137,9 @@ class OffersController extends Controller
      * @param  \App\Offers $offers
      * @return \Illuminate\Http\Response
      */
-    public function destroy(Offers $offers)
+    public function destroy($id)
     {
-        //
+        DB::table('offers')->where('id', $id)->delete();
+        return redirect('/offers/admin');
     }
 }

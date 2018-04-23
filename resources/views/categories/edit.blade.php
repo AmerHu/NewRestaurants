@@ -27,12 +27,8 @@
             </div>
 
             <div class="form-group">
-                <label>Arabic Name    :</label>
-                <input type="text" name="name_ar" value="{{ $category->name_ar }}">
-            </div>
-            <div class="form-group">
-                <label>English Name    :</label>
-                <input type="text" name="name_en" value="{{ $category->name_en }}">
+                <label>Name    :</label>
+                <input type="text" name="name" value="{{ $category->name }}">
             </div>
 
             <div class="form-group">

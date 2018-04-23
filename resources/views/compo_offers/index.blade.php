@@ -23,19 +23,6 @@
             <br/>
             <br/>
             <br/>
-            <br/>
-            <br/>
-            <br/>
-            <br/>
-            <br/>
-            <br/>
-            <br/>
-            <br/>
         @endforeach
-
     </div>
-
-
-
-
 @endsection

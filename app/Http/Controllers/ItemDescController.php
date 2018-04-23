@@ -29,7 +29,7 @@ class ItemDescController extends Controller
     public function create($id)
     {
         $item = Items::find($id);
-        $desc_id = DB::table('sub_items')->where('item_id', $id)->pluck('extra_id')->toArray();
+        $desc_id = DB::table('item_descs')->where('item_id', $id)->pluck('desc_id')->toArray();
 
         if ($desc_id == null) {
             $descriptions = Description::all();

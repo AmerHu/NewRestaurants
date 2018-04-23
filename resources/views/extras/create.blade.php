@@ -21,10 +21,10 @@
         {{ csrf_field() }}
         <div class="form-group">
             <label>Name</label>
-            <input type="text" name="name" class="form-control" id="name_ar" >
-            @if ($errors->has('name_ar'))
+            <input type="text" name="name" class="form-control" id="name" >
+            @if ($errors->has('name'))
                 <span class="help-block">
-                    <strong>{{ $errors->first('name_ar') }}</strong>
+                    <strong>{{ $errors->first('name') }}</strong>
                 </span>
             @endif
         </div>

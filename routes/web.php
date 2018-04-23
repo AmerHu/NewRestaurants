@@ -117,3 +117,13 @@ Route::post('/compoitem/edit/{id}', 'ItemsOfferController@update');
 Route::get('/compoitem/delete/{item_id}/{offer_id}', 'ItemsOfferController@destroy');
 Route::get('/compoitem/create/{id}', 'ItemsOfferController@create');
 Route::post('/compoitem/create', 'ItemsOfferController@store');
+
+
+
+//offer extra items
+
+Route::get('/extraoffer/edit/{id}', 'ExtraOffersController@edit');
+Route::post('/extraoffer/edit/{id}', 'ExtraOffersController@update');
+Route::get('/extraoffer/delete/{extra_id}/{offer_id}', 'ExtraOffersController@destroy');
+Route::get('/extraoffer/create/{id}', 'ExtraOffersController@create');
+Route::post('/extraoffer/create', 'ExtraOffersController@store');

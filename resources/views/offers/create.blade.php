@@ -8,21 +8,13 @@
 @section('content')
     <form method="post" action="/offers/create" enctype="multipart/form-data">
         {{ csrf_field() }}
-        <div class="form-group">
-            <label>Name AR</label>
-            <input type="text" name="name_ar" class="form-control" id="name_ar">
-            @if ($errors->has('name_ar'))
-                <span class="help-block">
-                    <strong>{{ $errors->first('name_ar') }}</strong>
-                </span>
-            @endif
-        </div>
+
         <div class="form-group">
             <label>Name En</label>
-            <input type="text" class="form-control" name="name_en" id="name_en"/>
-            @if ($errors->has('name_en'))
+            <input type="text" class="form-control" name="name" id="name"/>
+            @if ($errors->has('name'))
                 <span class="help-block">
-                    <strong>{{ $errors->first('name_en') }}</strong>
+                    <strong>{{ $errors->first('name') }}</strong>
                 </span>
             @endif
         </div>

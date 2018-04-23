@@ -14,7 +14,7 @@
                 @foreach($items as $item)
                     <div class="row">
                         <div class="col-md-11">
-                            <h4>  {{ $item->name_en }}</h4>
+                            <h4>  {{ $item->name }}</h4>
                         </div>
                         <div class="col-md-1">
                             <a href="/compoitem/delete/{{$item->id}}/{{ $compo->id}}"
@@ -26,10 +26,15 @@
                 @endforeach
                 <hr/>
             @endif
-            <a class="btn btn-primary" type="button" href="/compo/edit/{{$compo->id}}">edit</a>
-
-            <a class="btn btn-primary" type="button" href="/compoitem/create/{{$compo->id}}">Add new Compo Offers</a>
-
+           <div class="row"></div>
+           <div class="row">
+               <div class="col-md-6">
+                   <a class="btn btn-primary btn-block" type="button" href="/compo/edit/{{$compo->id}}">edit</a>
+               </div>
+               <div class="col-md-6">
+                   <a class="btn btn-primary btn-block" type="button" href="/compoitem/create/{{$compo->id}}">Add new Compo Offers</a>
+               </div>
+           </div>
         </div>
         <div class="col-md-6">
             <img src="/images/compo/{{ $compo->img }}" width="100%"/>

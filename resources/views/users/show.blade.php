@@ -8,10 +8,7 @@
         <div class="col-md-8">
             <h3>Name : {{ $user->name }}</h3>
             <h3>Email : {{ $user->email}}</h3>
-            @foreach($information as $info)
-                <h3>Gender : {{ $info->gender}}</h3>
-            @endforeach
-            <h3>Type : {{ $user->type }}</h3>
+            <h3>Type : {{ $userType }}</h3>
         </div>
         <div class="col-md-4">
             <a class="btn btn-primary btn-block" type="button" href="/user/edit/{{$user->id}}">edit</a>

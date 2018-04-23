@@ -33,7 +33,7 @@ class CompoOffersController extends Controller
     /**
      * Store a newly created resource in storage.
      *
-     * @param  \Illuminate\Http\Request  $request
+     * @param  \Illuminate\Http\Request $request
      * @return \Illuminate\Http\Response
      */
     public function store(Request $request)
@@ -62,42 +62,42 @@ class CompoOffersController extends Controller
     /**
      * Display the specified resource.
      *
-     * @param  \App\CompoOffers  $compoOffers
+     * @param  \App\CompoOffers $compoOffers
      * @return \Illuminate\Http\Response
      */
     public function show($id)
     {
-        $compo=CompoOffers::find($id);
+        $compo = CompoOffers::find($id);
 
         $items = DB::table('items')
-            ->select('items.id', 'items.name_en')
-            ->join('items_offers','item_id','=','items.id')
+            ->select('items.id', 'items.name')
+            ->join('items_offers', 'item_id', '=', 'items.id')
             ->where('offer_id', '=', $id)
             ->get();
-        return view('compo_offers.show',compact('compo','items'));
+        return view('compo_offers.show', compact('compo', 'items'));
 
     }
 
     /**
      * Show the form for editing the specified resource.
      *
-     * @param  \App\CompoOffers  $compoOffers
+     * @param  \App\CompoOffers $compoOffers
      * @return \Illuminate\Http\Response
      */
     public function edit($id)
     {
-        $compo= CompoOffers::find($id);
+        $compo = CompoOffers::find($id);
         return view('compo_offers.edit', compact("compo"));
     }
 
     /**
      * Update the specified resource in storage.
      *
-     * @param  \Illuminate\Http\Request  $request
-     * @param  \App\CompoOffers  $compoOffers
+     * @param  \Illuminate\Http\Request $request
+     * @param  \App\CompoOffers $compoOffers
      * @return \Illuminate\Http\Response
      */
-    public function update(Request $request,$id)
+    public function update(Request $request, $id)
     {
         if ($request->hasFile('img')) {
             $image = DB::table('compo_offers')->where('id', $id)->pluck('img')->first();
@@ -129,11 +129,12 @@ class CompoOffersController extends Controller
     /**
      * Remove the specified resource from storage.
      *
-     * @param  \App\CompoOffers  $compoOffers
+     * @param  \App\CompoOffers $compoOffers
      * @return \Illuminate\Http\Response
      */
-    public function destroy(CompoOffers $compoOffers)
+    public function destroy($id)
     {
-        //
+        DB::table('compo_offers')->where('id', $id)->delete();
+        return redirect('/compo/admin');
     }
 }

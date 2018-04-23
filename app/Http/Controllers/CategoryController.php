@@ -43,8 +43,7 @@ class CategoryController extends Controller
     {
         $this->validate(
             request(), [
-            'name_ar' => 'required|min:5',
-            'name_en' => 'required|min:5',
+            'name' => 'required|min:5',
             'img' => 'required|mimes:jpeg,bmp,png',
         ]);
 
@@ -54,8 +53,7 @@ class CategoryController extends Controller
             $file->move(public_path('images/categories'), $fileName);
 
             Category::create([
-                'name_en' => request("name_en"),
-                'name_ar' => request("name_ar"),
+                'name' => request("name"),
                 'img' => $fileName,
             ]);
         }
@@ -70,8 +68,8 @@ class CategoryController extends Controller
      */
     public function show($id)
     {
-        $category=Category::find($id);
-        return view('categories.show',compact('category'));
+        $category = Category::find($id);
+        return view('categories.show', compact('category'));
     }
 
     /**
@@ -106,15 +104,13 @@ class CategoryController extends Controller
             $file->move(public_path('images/categories'), $fileName);
             Category::whereId($id)->update([
 
-                'name_ar' => $request['name_ar'],
-                'name_en' => $request['name_en'],
+                'name' => $request['name'],
                 'img' => $fileName,
             ]);
         } else {
             $image = DB::table('categories')->where('id', $id)->pluck('img')->first();
             Category::whereId($id)->update([
-                'name_ar' => $request['name_ar'],
-                'name_en' => $request['name_en'],
+                'name' => $request['name'],
                 'img' => $image,
             ]);
         }
@@ -122,15 +118,15 @@ class CategoryController extends Controller
     }
 
 
-/**
- * Remove the specified resource from storage.
- *
- * @param  \App\Category $category
- * @return \Illuminate\Http\Response
- */
-public
-function destroy(Category $category)
-{
-    //
-}
+    /**
+     * Remove the specified resource from storage.
+     *
+     * @param  \App\Category $category
+     * @return \Illuminate\Http\Response
+     */
+    public function destroy($id)
+    {
+        DB::table('categories')->where('id', $id)->delete();
+        return redirect('/category/admin');
+    }
 }

@@ -3,6 +3,13 @@
     <h2> Items</h2>
 @endsection
 @section('content')
+
+    <div class="row">
+        <div class="offset-8 col-md-4">
+            <a class="btn btn-primary btn-block" type="button" href='/items/create'>Create New Items</a>
+        </div>
+    </div>
+    <br/>
     <div class="row">
         @foreach($items as $item)
             @include('items.item')
@@ -20,9 +27,8 @@
             <br/>
             <br/>
         @endforeach
-            @if(( $items->count())=== 0)
-                <a class="btn btn-primary btn-block" type="button" href='/items/create'>Offers New User</a>
-            @endif
+
+
     </div>
 
 @endsection

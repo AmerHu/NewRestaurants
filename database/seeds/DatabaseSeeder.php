@@ -13,9 +13,9 @@ class DatabaseSeeder extends Seeder
     {
         DB::table('users_types')->insert([
            [ 'Type' => 'Admin'],
-           [ 'Type' => 'kasher'],
+           [ 'Type' => 'Cashier'],
            [ 'Type' => 'Waiter'],
-           [ 'Type' => 'Waiter'],
+           [ 'Type' => 'Table'],
         ]);
         DB::table('users')->insert([
             'name' => "admin",

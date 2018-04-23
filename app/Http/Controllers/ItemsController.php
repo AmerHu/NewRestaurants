@@ -41,8 +41,7 @@ class ItemsController extends Controller
     public function store(Request $request)
     {
         $this->validate(request(), [
-            'name_ar' => 'required|min:5',
-            'name_en' => 'required|min:5',
+            'name' => 'required|min:5',
             'price' => 'required|min:1|numeric',
             'img' => 'required|min:5|mimes:jpeg,bmp,png',
             'cate_id' => 'required',
@@ -53,8 +52,7 @@ class ItemsController extends Controller
             $fileName = time() . '.' . $file->getClientOriginalExtension();
             $file->move(public_path('images/items'), $fileName);
             Items::create([
-                'name_ar' => $request['name_ar'],
-                'name_en' => $request['name_en'],
+                'name' => $request['name'],
                 'price' => $request['price'],
                 'cate_id' => request('cate_id'),
                 'img' => $fileName,
@@ -86,7 +84,7 @@ class ItemsController extends Controller
             ->where('item_id', '=', $id)
             ->get();
 
-        $category = Category::where('id',$item->cate_id)->pluck('name_en')->first();
+        $category = Category::where('id',$item->cate_id)->pluck('name')->first();
 
         return view('items.show',compact('category','item','extras','descriptions'));
     }
@@ -125,8 +123,7 @@ class ItemsController extends Controller
             $file->move(public_path('images/items'), $fileName);
             Items::whereId($id)->update([
 
-                'name_ar' => $request['name_ar'],
-                'name_en' => $request['name_en'],
+                'name' => $request['name'],
                 'price' => $request['price'],
                 'img' => $fileName,
                 'cate_id' => $request['cate_id'],
@@ -135,8 +132,7 @@ class ItemsController extends Controller
             $image = DB::table('items')->where('id', $id)->pluck('img')->first();
             Items::whereId($id)->update([
 
-                'name_ar' => $request['name_ar'],
-                'name_en' => $request['name_en'],
+                'name' => $request['name'],
                 'price' => $request['price'],
                 'img' => $image,
                 'cate_id' => $request['cate_id'],
@@ -152,8 +148,9 @@ class ItemsController extends Controller
      * @param  \App\Items  $items
      * @return \Illuminate\Http\Response
      */
-    public function destroy(Items $items)
+    public function destroy($id)
     {
-        //
+        DB::table('items')->where('id', $id)->delete();
+        return redirect('/items/admin');
     }
 }

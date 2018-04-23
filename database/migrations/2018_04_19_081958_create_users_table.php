@@ -20,7 +20,7 @@ class CreateUsersTable extends Migration
             $table->string('password');
             $table->boolean('active')->default(false);
             $table->boolean('isAdmin')->default(false);
-            $table->integer('type_id')->unsigned()->default(2);
+            $table->integer('type_id')->unsigned();
             $table->rememberToken();
             $table->timestamps();
         });

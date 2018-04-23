@@ -13,7 +13,7 @@
                     <div class="checkbox checkbox-success">
                         <input name="item_id[]" id="item_id{{ $item->id }}" type="checkbox"
                                value="{{ $item->id }}">
-                        <label for="item_id{{ $item->id }}">{{$item->name_en}}</label>
+                        <label for="item_id{{ $item->id }}">{{$item->name}}</label>
                     </div>
                 @endforeach
             </div>
