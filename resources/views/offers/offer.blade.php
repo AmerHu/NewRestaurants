@@ -4,11 +4,20 @@
 <div class="col-md-4">
     <img src="/images/offers/{{$offer->img}}" style="height: 200px">
 </div>
-<div class="col-md-4">
-    <a class="btn btn-danger btn-block btn-lg" type="button" href="/offers/delete/{{$offer->id}}"
-       onclick="return confirm('Are you sure you want to delete this OFFERS?')">
-        Delete
-    </a>
+<div class="col-md-4 text-center">
+    @if($offer->active == 1)
+        <a  href="/offers/delete/{{$offer->id}}/0"
+            onclick="return confirm('Are you sure you want to deactivate this Offer ?')">
+            <img src="/images/red-x-icon-transparent-background-6.png" style="margin-top: 13%;
+    width: 30%;"></a>
+
+    @endif
+    @if($offer->active == 0)
+        <a href="/offers/delete/{{$offer->id}}/1"
+           onclick="return confirm('Are you sure you want to active this Offer ?')">
+            <img src="/images/check.svg" style="margin-top: 13%;
+    width: 30%; "></a>
+    @endif
 </div>
 
 

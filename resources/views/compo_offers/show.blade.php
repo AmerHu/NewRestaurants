@@ -6,7 +6,8 @@
 @section('content')
     <div class="row">
         <div class="col-md-6">
-            <h3>Offer Name : {{ $compo->name}}</h3>
+            <h3>English Name : {{ json_decode($compo->name, true)['EN'] }}</h3>
+            <h3>Arabic Name : {{ json_decode($compo->name, true)['AR'] }}</h3>
             <h3>Price : {{ $compo->price}}</h3>
             <br/>
             @if(count($items)>0)

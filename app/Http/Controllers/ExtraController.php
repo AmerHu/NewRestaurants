@@ -34,12 +34,13 @@ class ExtraController extends Controller
     public function store(Request $request)
     {
         $this->validate(request(), [
-            'name' => 'required|min:5',
+            'nameAR' => 'required|min:5',
+            'nameEN' => 'required|min:5',
             'price' => 'required|min:1|numeric',
 
         ]);
         Extra::create([
-            'name' => $request['name'],
+            'name' => json_encode(['EN'=> request("nameEN"), 'AR' => request("nameAR")]),
             'price' => $request['price'],
 
         ]);
@@ -81,12 +82,13 @@ class ExtraController extends Controller
     public function update(Request $request, $id)
     {
         $this->validate(request(), [
-            'name' => 'required|min:5',
+            'nameAR' => 'required|min:5',
+            'nameEN' => 'required|min:5',
             'price' => 'required|min:1|numeric',
 
         ]);
         DB::table('extras')->update([
-            'name' => $request['name'],
+            'name' => json_encode(['EN'=> request("nameEN"), 'AR' => request("nameAR")]),
             'price' => $request['price'],
 
         ]);
@@ -100,9 +102,15 @@ class ExtraController extends Controller
      * @param  \App\Extra  $extra
      * @return \Illuminate\Http\Response
      */
-    public function destroy($id)
-    {
-        DB::table('extras')->where('id', $id)->delete();
+        public function destroy(Request $request, $id,$active)
+        {
+            $price = DB::table('extras')->where('id', $id)->pluck('price')->first();
+            $name = DB::table('extras')->where('id', $id)->pluck('name')->first();
+            Extra::whereId($id)->update([
+                'name' => $name,
+                'price' => $price,
+                'active' => $active,
+            ]);
         return redirect('/extra/admin');
     }
 }

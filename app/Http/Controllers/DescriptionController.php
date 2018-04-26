@@ -38,12 +38,12 @@ class DescriptionController extends Controller
     public function store(Request $request)
     {
         $this->validate(request(), [
-            'name' => 'required|min:5',
+            'nameEN' => 'required|min:5',
+            'nameAR' => 'required|min:5',
 
         ]);
         Description::create([
-            'name' => $request['name'],
-
+            'name' => json_encode(['EN'=> request("nameEN"), 'AR' => request("nameAR")]),
         ]);
         return redirect('/desc/admin');
     }
@@ -85,7 +85,7 @@ class DescriptionController extends Controller
             'name' => 'required|min:5',
         ]);
         DB::table('descriptions')->update([
-            'name' => $request['name'],
+            'name' => json_encode(['EN'=> request("nameEN"), 'AR' => request("nameAR")]),
         ]);
 
         return redirect('/desc/show/' .$request->get('id'));
@@ -97,9 +97,13 @@ class DescriptionController extends Controller
      * @param  \App\Description  $description
      * @return \Illuminate\Http\Response
      */
-    public function destroy($id)
+    public function destroy(Request $request, $id,$active)
     {
-        DB::table('descriptions')->where('id', $id)->delete();
+        $name = DB::table('descriptions')->where('id', $id)->pluck('name')->first();
+        Description::whereId($id)->update([
+            'name' => $name,
+            'active' => $active,
+        ]);
         return redirect('/desc/admin');
     }
 }

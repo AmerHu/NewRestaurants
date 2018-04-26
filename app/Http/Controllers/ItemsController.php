@@ -41,7 +41,8 @@ class ItemsController extends Controller
     public function store(Request $request)
     {
         $this->validate(request(), [
-            'name' => 'required|min:5',
+            'nameAR' => 'required|min:5',
+            'nameEN' => 'required|min:5',
             'price' => 'required|min:1|numeric',
             'img' => 'required|min:5|mimes:jpeg,bmp,png',
             'cate_id' => 'required',
@@ -52,7 +53,7 @@ class ItemsController extends Controller
             $fileName = time() . '.' . $file->getClientOriginalExtension();
             $file->move(public_path('images/items'), $fileName);
             Items::create([
-                'name' => $request['name'],
+                'name' => json_encode(['EN'=> request("nameEN"), 'AR' => request("nameAR")]),
                 'price' => $request['price'],
                 'cate_id' => request('cate_id'),
                 'img' => $fileName,
@@ -111,6 +112,14 @@ class ItemsController extends Controller
      */
     public function update(Request $request, $id)
     {
+        $this->validate(request(), [
+            'nameAR' => 'required|min:5',
+            'nameEN' => 'required|min:5',
+            'price' => 'required|min:1|numeric',
+            'img' => 'required|min:5|mimes:jpeg,bmp,png',
+            'cate_id' => 'required',
+        ]);
+
         if ($request->hasFile('img')) {
             $image = DB::table('items')->where('id', $id)->pluck('img')->first();
             $filename = (public_path('images/items/').$image);
@@ -123,7 +132,7 @@ class ItemsController extends Controller
             $file->move(public_path('images/items'), $fileName);
             Items::whereId($id)->update([
 
-                'name' => $request['name'],
+                'name' => json_encode(['EN'=> request("nameEN"), 'AR' => request("nameAR")]),
                 'price' => $request['price'],
                 'img' => $fileName,
                 'cate_id' => $request['cate_id'],
@@ -132,7 +141,7 @@ class ItemsController extends Controller
             $image = DB::table('items')->where('id', $id)->pluck('img')->first();
             Items::whereId($id)->update([
 
-                'name' => $request['name'],
+                'name' => json_encode(['EN'=> request("nameEN"), 'AR' => request("nameAR")]),
                 'price' => $request['price'],
                 'img' => $image,
                 'cate_id' => $request['cate_id'],
@@ -148,9 +157,19 @@ class ItemsController extends Controller
      * @param  \App\Items  $items
      * @return \Illuminate\Http\Response
      */
-    public function destroy($id)
+    public function destroy(Request $request, $id ,$active)
     {
-        DB::table('items')->where('id', $id)->delete();
+        $cate_id = DB::table('items')->where('id', $id)->pluck('cate_id')->first();
+        $price = DB::table('items')->where('id', $id)->pluck('price')->first();
+        $image = DB::table('items')->where('id', $id)->pluck('img')->first();
+        $name = DB::table('items')->where('id', $id)->pluck('name')->first();
+        Items::whereId($id)->update([
+            'name' => $name,
+            'price' => $price,
+            'img' => $image,
+            'cate_id' => $cate_id,
+            'active' => $active,
+        ]);
         return redirect('/items/admin');
     }
 }

@@ -18,6 +18,7 @@ class CreateItemsTable extends Migration
             $table->string('name');
             $table->double('price');
             $table->string('img');
+            $table->boolean('active')->default(true);
             $table->integer('cate_id')->unsigned();
             $table->timestamps();
         });

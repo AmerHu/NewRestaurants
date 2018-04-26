@@ -16,6 +16,7 @@ class CreateDescriptionsTable extends Migration
         Schema::create('descriptions', function (Blueprint $table) {
             $table->increments('id')->unsigned();
             $table->string('name');
+            $table->boolean('active')->default(true);
             $table->timestamps();
         });
     }

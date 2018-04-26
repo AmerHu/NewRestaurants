@@ -27,8 +27,23 @@
             </div>
 
             <div class="form-group">
-                <label>Name    :</label>
-                <input type="text" name="name" value="{{ $category->name }}">
+                <label>Arabic Name </label>
+                <input type="text" class="form-control" name="nameEN" id="nameEN" value= "{{ json_decode($category->name, true)['AR'] }} ">
+                @if ($errors->has('nameAR'))
+                    <span class="help-block">
+                    <strong>{{ $errors->first('nameEN') }}</strong>
+                </span>
+                @endif
+            </div>
+
+            <div class="form-group">
+                <label>English Name </label>
+                <input type="text" class="form-control" name="nameAR" id="nameAR" value= "{{ json_decode($category->name, true)['EN'] }}" >
+                @if ($errors->has('nameAR'))
+                    <span class="help-block">
+                    <strong>{{ $errors->first('nameAR') }}</strong>
+                </span>
+                @endif
             </div>
 
             <div class="form-group">

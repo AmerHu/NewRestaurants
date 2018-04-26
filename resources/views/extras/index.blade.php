@@ -4,7 +4,7 @@
 @endsection
 @section('content')
     <div class="row">
-        <div class="offset-8 col-md-4">
+        <div class="offset-7 col-md-3">
             <a class="btn btn-primary btn-block" type="button" href='/extra/create'> New Extra</a>
         </div>
     </div>
@@ -14,6 +14,5 @@
             @include('extras.extra')
 
         @endforeach
-
     </div>
 @endsection

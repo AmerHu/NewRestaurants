@@ -12,6 +12,7 @@
         </div>
     </div>
     <br/>
+    <br/>
     <div class="row">
         @foreach($descriptions as $description)
             @include('descriptions.description')

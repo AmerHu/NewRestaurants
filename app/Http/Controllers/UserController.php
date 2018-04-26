@@ -124,9 +124,17 @@ class UserController extends Controller
      * @param  int $id
      * @return \Illuminate\Http\Response
      */
-    public function destroy($id)
+    public function destroy($id , $active)
     {
-        DB::table('users')->where('id', $id)->delete();
+        $email = DB::table('users')->where('id', $id)->pluck('email')->first();
+        $type_id = DB::table('users')->where('id', $id)->pluck('type_id')->first();
+        $name = DB::table('users')->where('id', $id)->pluck('name')->first();
+        User::whereId($id)->update([
+            'name' => $name,
+            'email' => $email,
+            'type_id' => $type_id,
+            'active' => $active,
+        ]);
         return redirect('/user/admin');
     }
 }

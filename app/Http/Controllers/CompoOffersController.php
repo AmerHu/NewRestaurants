@@ -40,7 +40,8 @@ class CompoOffersController extends Controller
     {
         $this->validate(
             request(), [
-            'name' => 'required|min:5',
+            'nameEN' => 'required|min:5',
+            'nameAR' => 'required|min:5',
             'price' => 'required|min:1|numeric',
             'img' => 'required|mimes:jpeg,bmp,png',
         ]);
@@ -51,7 +52,7 @@ class CompoOffersController extends Controller
             $file->move(public_path('images/compo'), $fileName);
 
             CompoOffers::create([
-                'name' => request("name"),
+                'name' => json_encode(['EN'=> request("nameEN"), 'AR' => request("nameAR")]),
                 'price' => request("price"),
                 'img' => $fileName,
             ]);
@@ -109,15 +110,14 @@ class CompoOffersController extends Controller
             $fileName = time() . '.' . $file->getClientOriginalExtension();
             $file->move(public_path('images/compo'), $fileName);
             CompoOffers::whereId($id)->update([
-
-                'name' => $request['name'],
+                'name' => json_encode(['EN'=> request("nameEN"), 'AR' => request("nameAR")]),
                 'price' => $request['price'],
                 'img' => $fileName,
             ]);
         } else {
             $image = DB::table('compo_offers')->where('id', $id)->pluck('img')->first();
             CompoOffers::whereId($id)->update([
-                'name' => $request['name'],
+                'name' => json_encode(['EN'=> request("nameEN"), 'AR' => request("nameAR")]),
                 'price' => $request['price'],
                 'img' => $image,
             ]);
@@ -132,9 +132,17 @@ class CompoOffersController extends Controller
      * @param  \App\CompoOffers $compoOffers
      * @return \Illuminate\Http\Response
      */
-    public function destroy($id)
+    public function destroy(Request $request, $id,$active)
     {
-        DB::table('compo_offers')->where('id', $id)->delete();
+        $price = DB::table('compo_offers')->where('id', $id)->pluck('price')->first();
+        $name = DB::table('compo_offers')->where('id', $id)->pluck('name')->first();
+        $image = DB::table('compo_offers')->where('id', $id)->pluck('img')->first();
+        CompoOffers::whereId($id)->update([
+            'name' => $name,
+            'img' => $image,
+            'price' => $price,
+            'active' => $active,
+        ]);
         return redirect('/compo/admin');
     }
 }

@@ -39,7 +39,8 @@ class OffersController extends Controller
     public function store(Request $request)
     {
         $this->validate(request(), [
-            'name' => 'required|min:5',
+            'nameAR' => 'required|min:5',
+            'nameEN' => 'required|min:5',
             'price' => 'required|min:1|numeric',
             'description' => 'required|min:5',
             'img' => 'required|min:5|mimes:jpeg,bmp,png',
@@ -51,7 +52,7 @@ class OffersController extends Controller
             $fileName = time() . '.' . $file->getClientOriginalExtension();
             $file->move(public_path('images/offers'), $fileName);
             Offers::create([
-                'name' => $request['name'],
+                'name' => json_encode(['EN'=> request("nameEN"), 'AR' => request("nameAR")]),
                 'price' => $request['price'],
                 'description' => $request['description'],
                 'img' => $fileName,
@@ -111,7 +112,8 @@ class OffersController extends Controller
             $file->move(public_path('images/offers'), $fileName);
             Offers::whereId($id)->update([
 
-                'name' => $request['name'],
+                'nameAR' => $request['name'],
+                'nameEN' => $request['name'],
                 'price' => $request['price'],
                 'description' => $request['description'],
                 'img' => $fileName,
@@ -121,7 +123,8 @@ class OffersController extends Controller
             $image = DB::table('offers')->where('id', $id)->pluck('img')->first();
             Offers::whereId($id)->update([
 
-                'name' => $request['name'],
+                'nameAR' => $request['name'],
+                'nameEN' => $request['name'],
                 'price' => $request['price'],
                 'description' => $request['description'],
                 'img' => $image,
@@ -137,9 +140,19 @@ class OffersController extends Controller
      * @param  \App\Offers $offers
      * @return \Illuminate\Http\Response
      */
-    public function destroy($id)
+    public function destroy( $id,$active)
     {
-        DB::table('offers')->where('id', $id)->delete();
+        $description = DB::table('offers')->where('id', $id)->pluck('description')->first();
+        $price = DB::table('offers')->where('id', $id)->pluck('price')->first();
+        $image = DB::table('offers')->where('id', $id)->pluck('img')->first();
+        $name = DB::table('offers')->where('id', $id)->pluck('name')->first();
+        Offers::whereId($id)->update([
+            'name' => json_encode(['EN'=> request("nameEN"), 'AR' => request("nameAR")]),
+            'price' => $price,
+            'img' => $image,
+            'description' => $description,
+            'active' => $active,
+        ]);
         return redirect('/offers/admin');
     }
 }

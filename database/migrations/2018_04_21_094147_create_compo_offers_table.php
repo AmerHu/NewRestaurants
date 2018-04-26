@@ -17,6 +17,7 @@ class CreateCompoOffersTable extends Migration
             $table->increments('id');
             $table->string('name');
             $table->double('price');
+            $table->boolean('active')->default(true);
             $table->string('img');
             $table->timestamps();
         });

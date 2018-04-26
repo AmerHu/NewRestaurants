@@ -19,7 +19,7 @@ class CategoryController extends Controller
 
     public function index()
     {
-        $categories = Category::orderby('id')->paginate(3);
+        $categories = Category::all();
         return view("categories.index", compact('categories'));
     }
 
@@ -43,7 +43,8 @@ class CategoryController extends Controller
     {
         $this->validate(
             request(), [
-            'name' => 'required|min:5',
+            'nameEN' => 'required|min:5',
+            'nameAR' => 'required|min:5',
             'img' => 'required|mimes:jpeg,bmp,png',
         ]);
 
@@ -53,7 +54,7 @@ class CategoryController extends Controller
             $file->move(public_path('images/categories'), $fileName);
 
             Category::create([
-                'name' => request("name"),
+                'name' => json_encode(['EN'=> request("nameEN"), 'AR' => request("nameAR")]),
                 'img' => $fileName,
             ]);
         }
@@ -104,13 +105,13 @@ class CategoryController extends Controller
             $file->move(public_path('images/categories'), $fileName);
             Category::whereId($id)->update([
 
-                'name' => $request['name'],
+                'name' => json_encode(['EN'=> request("nameEN"), 'AR' => request("nameAR")]),
                 'img' => $fileName,
             ]);
         } else {
             $image = DB::table('categories')->where('id', $id)->pluck('img')->first();
             Category::whereId($id)->update([
-                'name' => $request['name'],
+                'name' => json_encode(['EN'=> request("nameEN"), 'AR' => request("nameAR")]),
                 'img' => $image,
             ]);
         }
@@ -124,9 +125,15 @@ class CategoryController extends Controller
      * @param  \App\Category $category
      * @return \Illuminate\Http\Response
      */
-    public function destroy($id)
+    public function destroy(Request $request, $id ,$active)
     {
-        DB::table('categories')->where('id', $id)->delete();
+        $name = DB::table('categories')->where('id', $id)->pluck('name')->first();
+        $image = DB::table('categories')->where('id', $id)->pluck('img')->first();
+        Category::whereId($id)->update([
+            'name' => $name,
+            'img' => $image,
+            'active' => $active,
+        ]);
         return redirect('/category/admin');
     }
 }

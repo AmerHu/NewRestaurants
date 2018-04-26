@@ -16,6 +16,7 @@ class CreateExtrasTable extends Migration
         Schema::create('extras', function (Blueprint $table) {
             $table->increments('id')->unsigned();
             $table->string('name');
+            $table->boolean('active')->default(true);
             $table->double('price');
             $table->timestamps();
         });
