@@ -19,13 +19,23 @@
 
     <form method="post" action="/offers/edit/{{$offer->id}}" enctype="multipart/form-data">
         {{ csrf_field() }}
-        <
+
         <div class="form-group">
-            <label>Name</label>
-            <input type="text" class="form-control" name="name" id="name" value = {{$offer->name}}>
-            @if ($errors->has('name'))
+            <label>Arabic Name </label>
+            <input type="text" class="form-control" name="nameEN" id="nameEN" value= "{{ json_decode($offer->name, true)['AR'] }} ">
+            @if ($errors->has('nameEN'))
                 <span class="help-block">
-                    <strong>{{ $errors->first('name') }}</strong>
+                    <strong>{{ $errors->first('nameEN') }}</strong>
+                </span>
+            @endif
+        </div>
+
+        <div class="form-group">
+            <label>English Name </label>
+            <input type="text" class="form-control" name="nameAR" id="nameAR" value= "{{ json_decode($offer->name, true)['EN'] }}" >
+            @if ($errors->has('nameAR'))
+                <span class="help-block">
+                    <strong>{{ $errors->first('nameAR') }}</strong>
                 </span>
             @endif
         </div>

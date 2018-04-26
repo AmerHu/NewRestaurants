@@ -87,7 +87,8 @@ class ExtraController extends Controller
             'price' => 'required|min:1|numeric',
 
         ]);
-        DB::table('extras')->update([
+        DB::table('extras')->where('id',$id)
+            ->update([
             'name' => json_encode(['EN'=> request("nameEN"), 'AR' => request("nameAR")]),
             'price' => $request['price'],
 

@@ -112,8 +112,7 @@ class OffersController extends Controller
             $file->move(public_path('images/offers'), $fileName);
             Offers::whereId($id)->update([
 
-                'nameAR' => $request['name'],
-                'nameEN' => $request['name'],
+                'name' => json_encode(['EN'=> request("nameEN"), 'AR' => request("nameAR")]),
                 'price' => $request['price'],
                 'description' => $request['description'],
                 'img' => $fileName,
@@ -123,8 +122,7 @@ class OffersController extends Controller
             $image = DB::table('offers')->where('id', $id)->pluck('img')->first();
             Offers::whereId($id)->update([
 
-                'nameAR' => $request['name'],
-                'nameEN' => $request['name'],
+                'name' => json_encode(['EN'=> request("nameEN"), 'AR' => request("nameAR")]),
                 'price' => $request['price'],
                 'description' => $request['description'],
                 'img' => $image,

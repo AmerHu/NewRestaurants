@@ -7,7 +7,8 @@
 @section('content')
     <div class="row">
         <div class="col-md-6">
-            <h3>Name : {{ $offer->name}}</h3>
+            <h3>Name EN : {{ json_decode($offer->name, true)['EN'] }}</h3>
+            <h3>Name AR : {{ json_decode($offer->name, true)['AR'] }}</h3>
             <h3>Price : {{ $offer->price}}</h3>
             <h3>Description : {{ $offer->description }}</h3>
             <br/>
@@ -30,8 +31,6 @@
                 <br/>
             @endforeach
             <hr/>
-
-
             <div class="row">
                 <div class=" col-md-6">
                     <a class="btn btn-primary btn-block" type="button" href="/offers/edit/{{$offer->id}}">edit</a>
@@ -45,10 +44,5 @@
         <div class="col-md-6">
             <img src="/images/offers/{{ $offer->img }}" width="100%"/>
         </div>
-
-
     </div>
-
-
-
 @endsection

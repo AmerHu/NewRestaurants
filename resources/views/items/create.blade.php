@@ -39,7 +39,7 @@
                 <option>Select Vehicle</option>
                 @foreach($categories as $category)
                     <option value="{{ $category->id }}">
-                        {{ $category->name }}
+                        {{ json_decode($category->name, true)['EN'] }} {{ json_decode($category->name, true)['AR'] }}
                     </option>
                 @endforeach
                 @if ($errors->has('cate_id'))

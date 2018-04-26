@@ -13,7 +13,7 @@
                     <div class="checkbox checkbox-success">
                         <input name="extra_id[]" id="extra_id{{ $description->id }}" type="checkbox"
                                value="{{ $description->id }}">
-                        <label for="extra_id{{ $description->id }}">{{$description->name}}</label>
+                        <label for="extra_id{{ $description->id }}">{{ json_decode($description->name, true)['EN'] }} {{ json_decode($description->name, true)['AR'] }}</label>
                     </div>
                 @endforeach
             </div>

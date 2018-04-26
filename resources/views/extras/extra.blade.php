@@ -1,6 +1,8 @@
 <div class="col-md-7">
-    <h4>Name : {{ $extra->name }}</h4>
+    <h4>Name EN : {{ json_decode($extra->name, true)['EN'] }}</h4>
+    <h4>Name AR : {{ json_decode($extra->name, true)['AR'] }}</h4>
     <h4>Price : {{ $extra->price}}</h4>
+    <hr/>
 </div>
 <div class="col-md-3">
     <a class="btn btn-primary btn-block" type="button" href="/extra/edit/{{$extra->id}}">edit</a>

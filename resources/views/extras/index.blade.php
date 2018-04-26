@@ -12,7 +12,6 @@
     <div class="row">
         @foreach($extras as $extra)
             @include('extras.extra')
-
         @endforeach
     </div>
 @endsection

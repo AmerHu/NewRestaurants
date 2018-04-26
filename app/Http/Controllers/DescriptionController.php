@@ -79,16 +79,19 @@ class DescriptionController extends Controller
      * @param  \App\Description  $description
      * @return \Illuminate\Http\Response
      */
-    public function update(Request $request, Description $description)
+    public function update(Request $request,$id)
     {
         $this->validate(request(), [
-            'name' => 'required|min:5',
+            'nameEN' => 'required|min:5',
+            'nameAR' => 'required|min:5',
         ]);
-        DB::table('descriptions')->update([
+        DB::table('descriptions')
+            ->where('id',$id)
+            ->update([
             'name' => json_encode(['EN'=> request("nameEN"), 'AR' => request("nameAR")]),
         ]);
 
-        return redirect('/desc/show/' .$request->get('id'));
+        return redirect('/desc/admin');
     }
 
     /**

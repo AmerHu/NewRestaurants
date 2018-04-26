@@ -1,6 +1,9 @@
 <div class="col-md-4">
-    <h3>Name : <a href="/offers/show/{{ $offer->id}}">{{ $offer->name }}</a></h3>
+    <h3>Name : <a href="/offers/show/{{ $offer->id}}">  {{ json_decode($offer->name, true)['EN'] }}
+           </a></h3>
+    <h4>Name AR : {{ json_decode($offer->name, true)['AR'] }}</h4>
 </div>
+
 <div class="col-md-4">
     <img src="/images/offers/{{$offer->img}}" style="height: 200px">
 </div>
