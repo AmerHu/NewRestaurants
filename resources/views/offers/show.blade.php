@@ -1,6 +1,6 @@
 @extends('layouts.app')
 @section('header')
-    <h2>Offers</h2>
+    <h2> <a href="/offers/admin">Offers</a></h2>
 @endsection
 
 
@@ -20,7 +20,7 @@
             @foreach($extras as $extra)
                 <div class="row">
                     <div class="col-md-11">
-                        <h4>  {{ $extra->name }}</h4>
+                        <h4>  {{ json_decode($extra->name, true)['EN'] }} {{ json_decode($extra->name, true)['AR'] }}</h4>
                     </div>
                     <div class="col-md-1">
                         <a href="/extraoffer/delete/{{$extra->id}}/{{ $offer->id}}"

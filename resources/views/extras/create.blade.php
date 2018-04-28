@@ -12,7 +12,7 @@
     }
 </style>
 @section('header')
-    <h2>Extra Items</h2>
+    <h2> <a href="/extra/admin">Extra Items</a></h2>
 @endsection
 
 @section('content')

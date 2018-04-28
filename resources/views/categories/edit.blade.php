@@ -12,7 +12,7 @@
 </style>
 
 @section('header')
-    <h2>Categories</h2>
+    <h2> <a href="/category/admin">Categories</a></h2>
 @endsection
 
 @section('content')

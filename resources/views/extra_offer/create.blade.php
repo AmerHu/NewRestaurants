@@ -1,4 +1,7 @@
 @extends('layouts.app')
+@section('header')
+    <h2> <a href="/offers/admin">Offers</a></h2>
+@endsection
 @section('content')
     @if($count >= 0)
         @include('flash::message')
@@ -13,7 +16,7 @@
                     <div class="checkbox checkbox-success">
                         <input name="extra_id[]" id="extra_id{{ $extra->id }}" type="checkbox"
                                value="{{ $extra->id }}">
-                        <label for="extra_id{{ $extra->id }}">{{$extra->name}}</label>
+                        <label for="extra_id{{ $extra->id }}">{{ json_decode($extra->name, true)['EN'] }} {{ json_decode($extra->name, true)['AR'] }}</label>
                     </div>
                 @endforeach
             </div>

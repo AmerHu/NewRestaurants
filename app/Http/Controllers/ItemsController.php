@@ -116,22 +116,17 @@ class ItemsController extends Controller
             'nameAR' => 'required|min:5',
             'nameEN' => 'required|min:5',
             'price' => 'required|min:1|numeric',
-            'img' => 'required|min:5|mimes:jpeg,bmp,png',
             'cate_id' => 'required',
         ]);
 
         if ($request->hasFile('img')) {
             $image = DB::table('items')->where('id', $id)->pluck('img')->first();
             $filename = (public_path('images/items/').$image);
-
             File::delete($filename);
-
-
             $file = $request->file('img');
             $fileName = time() . '.' . $file->getClientOriginalExtension();
             $file->move(public_path('images/items'), $fileName);
             Items::whereId($id)->update([
-
                 'name' => json_encode(['EN'=> request("nameEN"), 'AR' => request("nameAR")]),
                 'price' => $request['price'],
                 'img' => $fileName,
@@ -140,7 +135,6 @@ class ItemsController extends Controller
         } else {
             $image = DB::table('items')->where('id', $id)->pluck('img')->first();
             Items::whereId($id)->update([
-
                 'name' => json_encode(['EN'=> request("nameEN"), 'AR' => request("nameAR")]),
                 'price' => $request['price'],
                 'img' => $image,

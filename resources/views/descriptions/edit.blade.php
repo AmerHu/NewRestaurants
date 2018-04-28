@@ -1,6 +1,6 @@
 @extends('layouts.app')
 @section('header')
-    <h2>Description</h2>
+    <h2> <a href="/desc/admin">Description</a></h2>
 @endsection
 
 

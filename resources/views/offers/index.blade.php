@@ -1,6 +1,6 @@
 @extends('layouts.app')
 @section('header')
-    <h2>Offers</h2>
+    <h2> <a href="/offers/admin">Offers</a></h2>
 @endsection
 
 @section('content')

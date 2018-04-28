@@ -1,7 +1,8 @@
 @extends('layouts.app')
 @section('header')
-    <h2>Extra Items</h2>
+    <h2> <a href="/extra/admin">Extra Items</a></h2>
 @endsection
+
 @section('content')
     <div class="row">
         <div class="offset-7 col-md-3">

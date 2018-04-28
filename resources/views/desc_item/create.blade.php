@@ -1,4 +1,7 @@
 @extends('layouts.app')
+@section('header')
+    <h2> <a href="/items/admin">Items</a></h2>
+@endsection
 @section('content')
     @if($count >= 0)
         @include('flash::message')

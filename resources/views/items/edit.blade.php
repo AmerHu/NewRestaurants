@@ -4,6 +4,7 @@
     input[type="file"] {
         display: none;
     }
+
     .custom-file-upload {
         border: 1px solid #ccc;
         display: inline-block;
@@ -12,7 +13,7 @@
     }
 </style>
 @section('header')
-    <h2> Items</h2>
+    <h2> <a href="/items/admin">Items</a></h2>
 @endsection
 @section('content')
 
@@ -21,7 +22,8 @@
 
         <div class="form-group">
             <label>Arabic Name </label>
-            <input type="text" class="form-control" name="nameEN" id="nameEN" value= "{{ json_decode($items->name, true)['AR'] }} ">
+            <input type="text" class="form-control" name="nameEN" id="nameEN"
+                   value="{{ json_decode($items->name, true)['AR'] }} ">
             @if ($errors->has('nameEN'))
                 <span class="help-block">
                     <strong>{{ $errors->first('nameEN') }}</strong>
@@ -31,7 +33,8 @@
 
         <div class="form-group">
             <label>English Name </label>
-            <input type="text" class="form-control" name="nameAR" id="nameAR" value= "{{ json_decode($items->name, true)['EN'] }}" >
+            <input type="text" class="form-control" name="nameAR" id="nameAR"
+                   value="{{ json_decode($items->name, true)['EN'] }}">
             @if ($errors->has('nameAR'))
                 <span class="help-block">
                     <strong>{{ $errors->first('nameAR') }}</strong>
@@ -40,20 +43,20 @@
         </div>
         <div class="form-group">
             <label>Price</label>
-            <input type="text" class="form-control" name="price" id="price" value = {{$items->price}}>
+            <input type="text" class="form-control" name="price" id="price" value= {{$items->price}}>
             @if ($errors->has('price'))
                 <span class="help-block">
                     <strong>{{ $errors->first('price') }}</strong>
                 </span>
             @endif
         </div>
-           <div class="form-group">
+        <div class="form-group">
             <label>Category</label>
             <select name="cate_id" class="form-control" style="height:36px">
                 <option value="{{ $items->cate_id }}">NO Change Category</option>
                 @foreach($categories as $category)
                     <option value="{{ $category->id }}">
-                        {{ $category->name }}
+                        {{ json_decode($category->name, true)['EN'] }}
                     </option>
                 @endforeach
                 @if ($errors->has('cate_id'))

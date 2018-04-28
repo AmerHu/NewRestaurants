@@ -13,8 +13,9 @@
     }
 </style>
 @section('header')
-    <h2> Compo Offers</h2>
+    <h2> <a href="/compo/admin">Compo Offers</a></h2>
 @endsection
+
 @section('content')
 
     <form method="post" action="/compo/edit/{{$compo->id}}" enctype="multipart/form-data">

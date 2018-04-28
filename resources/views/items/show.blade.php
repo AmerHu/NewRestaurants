@@ -1,6 +1,6 @@
 @extends('layouts.app')
 @section('header')
-    <h2> Items</h2>
+    <h2> <a href="/items/admin">Items</a></h2>
 @endsection
 
 @section('content')
@@ -12,10 +12,11 @@
 
             <hr/>
             <h2>Extra Items</h2>
+            <br/>
             @foreach($extras as $extra)
                 <div class="row">
                     <div class="col-md-11">
-                        <h4>  {{ $extra->name }}</h4>
+                        <h4> {{ json_decode($extra->name, true)['EN'] }} </h4>
                     </div>
                     <div class="col-md-1">
                         <a href="/subitems/delete/{{$extra->id}}/{{ $item->id}}"
@@ -46,7 +47,7 @@
         </div>
 
         <div class="col-md-6">
-            <img src="/images/items/{{ $item->img }}" height="100%"/>
+            <img src="/images/items/{{ $item->img }}" width="100%"/>
         </div>
     </div>
     <br>

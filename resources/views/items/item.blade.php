@@ -4,20 +4,19 @@
 </div>
 
 <div class="col-md-3">
-    <img src="/images/items/{{$item->img}}" style="height: 100%">
+    <img src="/images/items/{{$item->img}}" style="width: 100%">
 </div>
 <div class="col-md-4 text-center">
     @if($item->active == 1)
         <a href="/items/delete/{{$item->id}}/0"
            onclick="return confirm('Are you sure you want to deactivate this Items ?')">
-            <img src="/images/check.svg" style="    width: 35%;
-    margin-top: 25%;"></a>
+            <img src="/images/check.svg" style="width: 35%; margin-top: 25%;"></a>
 
     @endif
     @if($item->active == 0)
         <a href="/items/delete/{{$item->id}}/1"
            onclick="return confirm('Are you sure you want to active this Items ?')">
-            <img src="/images/red-x-icon-transparent-background-6.png" style="    width: 35%;
+            <img src="/images/red-x-icon-transparent-background-6.png" style="width: 35%;
     margin-top: 25%; ">
         </a>
 

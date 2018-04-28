@@ -4,65 +4,75 @@
 @endsection
 
 @section('content')
-    <form method="post" action="/items/create" enctype="multipart/form-data">
-        {{ csrf_field() }}
-        <div  class="form-group">
-            <label>Name AR</label>
-            <input type="text" name="nameAR" class="form-control" id="nameAR">
-            @if ($errors->has('nameAR'))
+    {{ Form::open(array('url' => '/items/create')) }}
+    {{ csrf_field() }}
+    <div class="form-group">
+
+        {{ Form::label('nameAR', 'Name AR', ['class' => 'awesome']) }}
+
+        {!! Form::text('nameAR', null, ['class'=>'form-control']) !!}
+
+        @if ($errors->has('nameAR'))
+            <span class="help-block">
+        <strong>{{ $errors->first('nameAR') }}</strong>
+        </span>
+        @endif
+    </div>
+    <div class="form-group">
+        {{ Form::label('nameEN', 'Name EN', ['class' => 'awesome']) }}
+        {!! Form::text('nameEN', null, ['class'=>'form-control']) !!}
+        @if ($errors->has('nameEN'))
+            <span class="help-block">
+        <strong>{{ $errors->first('nameEN') }}</strong>
+        </span>
+        @endif
+    </div>
+
+    <div class="form-group">
+        {{ Form::label('price', 'Price', ['class' => 'awesome']) }}
+        {!! Form::number('price', null, ['class'=>'form-control']) !!}
+        @if ($errors->has('price'))
+            <span class="help-block">
+        <strong>{{ $errors->first('price') }}</strong>
+        </span>
+        @endif
+    </div>
+    <div class="form-group">
+        {{ Form::label('category', 'Category', ['class' => 'awesome']) }}
+
+        <select name="cate_id" class="form-control" style="height:36px">
+            <option>Select Vehicle</option>
+            @foreach($categories as $category)
+                <option value="{{ $category->id }}">
+                    {{ json_decode($category->name, true)['EN'] }}
+
+                </option>
+            @endforeach
+            @if ($errors->has('cate_id'))
                 <span class="help-block">
-                   <strong>{{ $errors->first('nameAR') }}</strong>
-               </span>
-            @endif
-        </div>
-        <div  class="form-group">
-            <label>Name EN</label>
-            <input type="text" name="nameEN" class="form-control" id="nameEN">
-            @if ($errors->has('nameEN'))
-                <span class="help-block">
-                   <strong>{{ $errors->first('nameEN') }}</strong>
-               </span>
-            @endif
-        </div>
-        <div class="form-group">
-            <label>Price</label>
-            <input type="text" class="form-control" name="price" id="price"/>
-            @if ($errors->has('price'))
-                <span class="help-block">
-                    <strong>{{ $errors->first('price') }}</strong>
-                </span>
-            @endif
-        </div>
-        <div class="form-group">
-            <label>Category</label>
-            <select name="cate_id" class="form-control" style="height:36px">
-                <option>Select Vehicle</option>
-                @foreach($categories as $category)
-                    <option value="{{ $category->id }}">
-                        {{ json_decode($category->name, true)['EN'] }} {{ json_decode($category->name, true)['AR'] }}
-                    </option>
-                @endforeach
-                @if ($errors->has('cate_id'))
-                    <span class="help-block">
                                         <strong>{{ $errors->first('cate_id') }}</strong>
                                     </span>
-                @endif
-            </select>
-        </div>
-
-
-        <div class="form-group">
-            <label>Image</label>
-            <input id="file-upload" type="file" name="img" id="img"/>
-            @if ($errors->has('img'))
-                <span class="help-block">
-                    <strong>{{ $errors->first('img') }}</strong>
-                </span>
             @endif
-        </div>
+        </select>
+    </div>
+    <div class="form-group">
 
-        <button type="submit" class="btn btn-default">Publish</button>
-    </form>
+        {{ Form::label('img', 'Image', ['class' => 'awesome']) }}
+        {{Form::file('img')}}
+        {{--<input id="file-upload" type="file" name="img" id="img"/>--}}
+        {{--@if ($errors->has('img'))--}}
+        {{--<span class="help-block">--}}
+        {{--<strong>{{ $errors->first('img') }}</strong>--}}
+        {{--</span>--}}
+        {{--@endif--}}
+        @if ($errors->has('img'))
+            <span class="help-block">
+                                        <strong>{{ $errors->first('img') }}</strong>
+                                    </span>
+        @endif
+    </div>
+    {{ Form::submit('Publish',['class'=> 'btn btn-default']) }}
+    {{ Form::close() }}
 @endsection
 
 
