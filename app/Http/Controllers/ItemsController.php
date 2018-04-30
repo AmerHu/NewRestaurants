@@ -40,14 +40,14 @@ class ItemsController extends Controller
      */
     public function store(Request $request)
     {
-        $this->validate(request(), [
+        $this->validate(
+            request(), [
             'nameAR' => 'required|min:5',
             'nameEN' => 'required|min:5',
             'price' => 'required|min:1|numeric',
-            'img' => 'required|min:5|mimes:jpeg,bmp,png',
+            'img' => 'required|mimes:jpeg,bmp,png',
             'cate_id' => 'required',
         ]);
-
         if ($request->hasFile('img')) {
             $file = request()->file('img');
             $fileName = time() . '.' . $file->getClientOriginalExtension();
@@ -57,6 +57,7 @@ class ItemsController extends Controller
                 'price' => $request['price'],
                 'cate_id' => request('cate_id'),
                 'img' => $fileName,
+                'active' => 0,
             ]);
         }
         return redirect('/items/admin');

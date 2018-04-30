@@ -5,7 +5,7 @@
     </h4>
 </div>
 <div class="col-md-4">
-    <img src="/images/categories/{{ $category->img }}" style="height:98%">
+    <img src="/images/categories/{{ $category->img }}" style="height: 300px;">
 </div>
 <div class="col-md-4 text-center">
     @if($category->active == 1)
@@ -15,12 +15,15 @@
     margin-top: 11%;">
         </a>
     @endif
-        @if($category->active == 0)
-            <a href="/category/delete/{{$category->id}}/1"
-               onclick="return confirm('Are you sure you want to active this Category ?')">
-                <img src="/images/red-x-icon-transparent-background-6.png" style="width: 35%;
+    @if($category->active == 0)
+        <a href="/category/delete/{{$category->id}}/1"
+           onclick="return confirm('Are you sure you want to active this Category ?')">
+            <img src="/images/red-x-icon-transparent-background-6.png" style="width: 35%;
                 margin-top: 11%;">
-            </a>
-        @endif
-
+        </a>
+    @endif
+    <br/>
+    <br/>
+    <br/>
+    <br/>
 </div>

@@ -1,10 +1,9 @@
 @extends('layouts.app')
 @section('header')
-    <h2> Items</h2>
+    <h2> <a href="/items/admin">Items</a></h2>
 @endsection
-
 @section('content')
-    {{ Form::open(array('url' => '/items/create')) }}
+    {{ Form::open(array('url' => '/items/create', 'files' => true )) }}
     {{ csrf_field() }}
     <div class="form-group">
 
@@ -58,13 +57,13 @@
     <div class="form-group">
 
         {{ Form::label('img', 'Image', ['class' => 'awesome']) }}
-        {{ Form::file('img',['class'=> 'btn btn-default'])  }}
+        {{ Form::file('img', null)  }}
         {{--<input id="file-upload" type="file" name="img" id="img"/>--}}
-        {{--@if ($errors->has('img'))--}}
-        {{--<span class="help-block">--}}
-        {{--<strong>{{ $errors->first('img') }}</strong>--}}
-        {{--</span>--}}
-        {{--@endif--}}
+        @if ($errors->has('img'))
+            <span class="help-block">
+        <strong>{{ $errors->first('img') }}</strong>
+        </span>
+        @endif
     </div>
     {{ Form::submit('Publish',['class'=> 'btn btn-default']) }}
     {{ Form::close() }}

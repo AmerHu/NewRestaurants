@@ -49,10 +49,10 @@ class CategoryController extends Controller
         ]);
 
         if ($request->hasFile('img')) {
+            dd($request);
             $file = request()->file('img');
             $fileName = time() . '.' . $file->getClientOriginalExtension();
             $file->move(public_path('images/categories'), $fileName);
-
             Category::create([
                 'name' => json_encode(['EN'=> request("nameEN"), 'AR' => request("nameAR")]),
                 'img' => $fileName,
