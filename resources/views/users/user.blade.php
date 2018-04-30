@@ -1,6 +1,6 @@
 <div class="row">
     <div class="col-md-8">
-        <h3>Name : <a href="/user/show/ {{ $user->id}}">{{ $user->name }}</a></h3>
+        <h3>Name : <a href="/user/show/ {{ $user->id}}">{{ json_decode($user->name, true)['EN'] }}</a></h3>
         <h3>Email : {{ $user->email}}</h3>
     </div>
     <div class="col-md-4 text-center">

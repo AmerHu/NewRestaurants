@@ -17,7 +17,7 @@ class UserController extends Controller
      */
     public function index()
     {
-        $users = User::orderBy('id')->where('isAdmin','!=', true)->paginate(4);
+        $users = User::orderBy('id')->where('isAdmin', '!=', true)->paginate(4);
 
         $userType = UsersType::all()->pluck('Type');
 
@@ -45,19 +45,20 @@ class UserController extends Controller
     {
         $this->validate(
             request(), [
-            'name' => 'required|min:5',
+            'nameEN' => 'required|min:5',
+            'nameAR' => 'required|min:5',
             'type_id' => 'required',
             'email' => 'required|min:5|email',
             'password' => 'required|min:6',
         ]);
 
         User::create([
-            'name' => request('name'),
+            'name' => json_encode(['EN' => request("nameEN"), 'AR' => request("nameAR")]),
             'type_id' => request('type_id'),
             'email' => request('email'),
             'password' => bcrypt($request['password']),
-            'isAdmin'=>0,
-            'active'=>0,
+            'isAdmin' => 0,
+            'active' => 0,
         ]);
         return redirect('/user/admin');
     }
@@ -104,16 +105,17 @@ class UserController extends Controller
      */
     public function update(Request $request, $id)
     {
-        $this->validate(
-            request(), [
-            'name' => 'required|min:5',
-            'email' => 'required|min:5',
-            'type_id' => 'required|min:5',
-        ]);
+
+        $active = DB::table('users')->where('id', $id)->pluck('active')->first();
+        $isAdmin = DB::table('users')->where('id', $id)->pluck('isAdmin')->first();
+        $password = DB::table('users')->where('id', $id)->pluck('password')->first();
         User::whereId($id)->update([
-            'name' => request('name'),
-            'type_id' => request('type'),
+            'name' => json_encode(['EN' => request("nameEN"), 'AR' => request("nameAR")]),
+            'type_id' => request('type_id'),
             'email' => request('email'),
+            'isAdmin' =>$isAdmin,
+            'active' => $active,
+            'password' => $password,
         ]);
         return redirect('/user/admin');
     }
@@ -124,7 +126,7 @@ class UserController extends Controller
      * @param  int $id
      * @return \Illuminate\Http\Response
      */
-    public function destroy($id , $active)
+    public function destroy($id, $active)
     {
         $email = DB::table('users')->where('id', $id)->pluck('email')->first();
         $type_id = DB::table('users')->where('id', $id)->pluck('type_id')->first();
