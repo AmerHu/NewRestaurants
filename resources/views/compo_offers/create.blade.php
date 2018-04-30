@@ -1,51 +1,54 @@
 @extends('layouts.app')
 @section('header')
-    <h2> <a href="/compo/admin">Compo Offers</a></h2>
+    <h2><a href="/compo/admin">Compo Offers</a></h2>
 @endsection
 
 @section('content')
-    <form method="post" action="/compo/create" enctype="multipart/form-data">
-        {{ csrf_field() }}
+    {{ Form::open(array('url' => '/compo/create', 'files' => true )) }}
+    {{ csrf_field() }}
+    <div class="form-group">
 
-        <div  class="form-group">
-            <label>Name AR</label>
-            <input type="text" name="nameAR" class="form-control" id="nameAR">
-            @if ($errors->has('nameAR'))
-                <span class="help-block">
-                   <strong>{{ $errors->first('nameAR') }}</strong>
-               </span>
-            @endif
-        </div>
-        <div  class="form-group">
-            <label>Name EN</label>
-            <input type="text" name="nameEN" class="form-control" id="nameEN">
-            @if ($errors->has('nameEN'))
-                <span class="help-block">
-                   <strong>{{ $errors->first('nameEN') }}</strong>
-               </span>
-            @endif
-        </div>
-        <div class="form-group">
-            <label>Price</label>
-            <input type="text" class="form-control" name="price" id="price"/>
-            @if ($errors->has('price'))
-                <span class="help-block">
-                    <strong>{{ $errors->first('price') }}</strong>
-                </span>
-            @endif
-        </div>
-        <div class="form-group">
-            <label>Image</label>
-            <input id="file-upload" type="file" name="img" id="img"/>
-            @if ($errors->has('img'))
-                <span class="help-block">
-                    <strong>{{ $errors->first('img') }}</strong>
-                </span>
-            @endif
-        </div>
+        {{ Form::label('nameAR', 'Name AR', ['class' => 'awesome']) }}
 
-        <button type="submit" class="btn btn-default">Publish</button>
-    </form>
+        {!! Form::text('nameAR', null, ['class'=>'form-control']) !!}
+
+        @if ($errors->has('nameAR'))
+            <span class="help-block">
+        <strong>{{ $errors->first('nameAR') }}</strong>
+        </span>
+        @endif
+    </div>
+    <div class="form-group">
+        {{ Form::label('nameEN', 'Name EN', ['class' => 'awesome']) }}
+        {!! Form::text('nameEN', null, ['class'=>'form-control']) !!}
+        @if ($errors->has('nameEN'))
+            <span class="help-block">
+        <strong>{{ $errors->first('nameEN') }}</strong>
+        </span>
+        @endif
+    </div>
+    <div class="form-group">
+        {{ Form::label('price', 'Price', ['class' => 'awesome']) }}
+        {!! Form::number('price', null, ['class'=>'form-control']) !!}
+        @if ($errors->has('price'))
+            <span class="help-block">
+        <strong>{{ $errors->first('price') }}</strong>
+        </span>
+        @endif
+    </div>
+    <div class="form-group">
+
+        {{ Form::label('img', 'Image', ['class' => 'awesome']) }}
+        {{ Form::file('img', null)  }}
+        {{--<input id="file-upload" type="file" name="img" id="img"/>--}}
+        @if ($errors->has('img'))
+            <span class="help-block">
+        <strong>{{ $errors->first('img') }}</strong>
+        </span>
+        @endif
+    </div>
+    {{ Form::submit('Publish',['class'=> 'btn btn-default']) }}
+    {{ Form::close() }}
 @endsection
 
 
