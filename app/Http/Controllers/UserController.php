@@ -130,12 +130,14 @@ class UserController extends Controller
     {
         $email = DB::table('users')->where('id', $id)->pluck('email')->first();
         $type_id = DB::table('users')->where('id', $id)->pluck('type_id')->first();
+        $password = DB::table('users')->where('id', $id)->pluck('password')->first();
         $name = DB::table('users')->where('id', $id)->pluck('name')->first();
         User::whereId($id)->update([
             'name' => $name,
             'email' => $email,
             'type_id' => $type_id,
             'active' => $active,
+            'password'=> $password,
         ]);
         return redirect('/user/admin');
     }
