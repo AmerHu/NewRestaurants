@@ -7,18 +7,17 @@
 </div>
 <div class="col-md-4 text-center">
     @if($compo->active == 1)
-        <a  href="/compo/delete/{{$compo->id}}/0"
-            onclick="return confirm('Are you sure you want to deactivate this Category ?')">
-            <img src="/images/check.svg" style="    margin-top: 18%;
-    width: 30%;"></a>
+        <a href="/compo/delete/{{$compo->id}}/0"
+           onclick="return confirm('Are you sure you want to deactivate this Category ?')">
+            <img src="/images/check.svg" style="     margin-top: 4%;
+    width: 22%;"></a>
 
     @endif
     @if($compo->active == 0)
         <a href="/compo/delete/{{$compo->id}}/1"
            onclick="return confirm('Are you sure you want to active this Category ?')">
-            <img src="/images/red-x-icon-transparent-background-6.png" style="margin-top: 18%;
-    width: 30%;">
-           </a>
-
+            <img src="/images/red-x-icon-transparent-background-6.png" style="margin-top: 4%;
+    width: 22%;">
+        </a>
     @endif
 </div>

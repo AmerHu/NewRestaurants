@@ -27,7 +27,7 @@
         <div class="form-group">
             <label>Category</label>
             <select name="type_id" class="form-control" style="height:36px">
-                <option>Select Vehicle</option>
+                <option>Select</option>
                 <option value="2">Cashier</option>
                 <option value="3">Waiter</option>
                 <option value="4">Table</option>

@@ -16,9 +16,7 @@
     <div class="row">
         @foreach($descriptions as $description)
             @include('descriptions.description')
-            @if(( $descriptions->count())>1)
-                <hr/>
-            @endif
+
         @endforeach
     </div>
 @endsection

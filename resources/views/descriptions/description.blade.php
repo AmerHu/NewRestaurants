@@ -9,17 +9,19 @@
     @if($description->active == 1)
         <a  href="/desc/delete/{{$description->id}}/0"
             onclick="return confirm('Are you sure you want to deactivate this Description ?')">
-            <img src="/images/check.svg" style="width:20% ;margin-top: -14px;"></a>
+            <img src="/images/check.svg" style="width:14%"></a>
 
     @endif
     @if($description->active == 0)
         <a href="/desc/delete/{{$description->id}}/1"
            onclick="return confirm('Are you sure you want to active this Description ?')">
-            <img src="/images/red-x-icon-transparent-background-6.png" style="width:18% ;margin-top: -20px;">
+            <img src="/images/red-x-icon-transparent-background-6.png" style="width:14% ">
             </a>
 
     @endif
+
 </div>
+
 <br/>
 <br/>
 <br/>

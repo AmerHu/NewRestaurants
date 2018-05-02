@@ -10,16 +10,20 @@
     @if($item->active == 1)
         <a href="/items/delete/{{$item->id}}/0"
            onclick="return confirm('Are you sure you want to deactivate this Items ?')">
-            <img src="/images/check.svg" style="width: 35%; margin-top: 25%;"></a>
+            <img src="/images/check.svg" style="width: 34%;"></a>
 
     @endif
     @if($item->active == 0)
         <a href="/items/delete/{{$item->id}}/1"
            onclick="return confirm('Are you sure you want to active this Items ?')">
-            <img src="/images/red-x-icon-transparent-background-6.png" style="width: 35%;
-    margin-top: 25%; ">
+            <img src="/images/red-x-icon-transparent-background-6.png" style="
+            width: 30%;
+                 margin-bottom: 2%;
+                 margin-top: 2%;">
         </a>
-
     @endif
+    <br/>
+    <br/>
+    <br/>
 </div>
 

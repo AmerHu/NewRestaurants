@@ -1,7 +1,7 @@
 @extends('layouts.app')
 
 @section('header')
-    <h2> <a href="/category/admin">Categories</a></h2>
+    <h2><a href="/category/admin">Categories</a></h2>
 @endsection
 
 @section('content')
@@ -11,9 +11,11 @@
         </div>
     </div>
     <br/>
-    <div class="row">
-        @foreach($categories as $category)
+
+    @foreach($categories as $category)
+
             @include('categories.category')
-        @endforeach
-    </div>
+
+    @endforeach
+
 @endsection

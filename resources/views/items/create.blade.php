@@ -31,7 +31,7 @@
 
         <div class="form-group">
             {{ Form::label('price', 'Price', ['class' => 'awesome']) }}
-            {!! Form::number('price', null, ['class'=>'form-control']) !!}
+            {!! Form::number('price', null, ['class' => 'form-control','step' => '0.1']) !!}
             @if ($errors->has('price'))
                 <span class="help-block">
         <strong>{{ $errors->first('price') }}</strong>

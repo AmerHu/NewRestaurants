@@ -5,8 +5,8 @@
 @section('content')
     <div class="row">
         <div class="col-md-6">
-            <h3>Name AR :{{ json_decode($category->name, true)['AR'] }}</h3>
-            <h3>Name EN :{{ json_decode($category->name, true)['EN'] }}</h3>
+            <h4>Name AR :{{ json_decode($category->name, true)['AR'] }}</h4>
+            <h4>Name EN :{{ json_decode($category->name, true)['EN'] }}</h4>
         </div>
         <div class="col-md-6">
             <img src="/{{ $category->img }}" style="height:  60%">

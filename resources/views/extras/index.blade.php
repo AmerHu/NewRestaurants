@@ -7,12 +7,14 @@
     <div class="row">
         <div class="offset-7 col-md-3">
             <a class="btn btn-primary btn-block" type="button" href='/extra/create'> New Extra</a>
+
         </div>
     </div>
-    <br/>
+    <hr/>
     <div class="row">
         @foreach($extras as $extra)
             @include('extras.extra')
+            <hr/>
         @endforeach
     </div>
 @endsection
