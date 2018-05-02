@@ -5,7 +5,7 @@
 </div>
 
 <div class="col-md-4">
-    <img src="/images/offers/{{$offer->img}}" style="height: 200px">
+    <img src="/{{$offer->img}}" style="height: 200px">
 </div>
 <div class="col-md-4 text-center">
     @if($offer->active == 1)

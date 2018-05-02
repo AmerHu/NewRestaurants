@@ -39,7 +39,7 @@
            </div>
         </div>
         <div class="col-md-6">
-            <img src="/images/compo/{{ $compo->img }}" width="100%"/>
+            <img src="/{{ $compo->img }}" width="100%"/>
         </div>
     </div>
 @endsection

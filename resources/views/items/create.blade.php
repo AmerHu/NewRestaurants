@@ -1,72 +1,96 @@
 @extends('layouts.app')
 @section('header')
-    <h2> <a href="/items/admin">Items</a></h2>
+    <h2><a href="/items/admin">Items</a></h2>
 @endsection
 @section('content')
     {{ Form::open(array('url' => '/items/create', 'files' => true )) }}
     {{ csrf_field() }}
-    <div class="form-group">
 
-        {{ Form::label('nameAR', 'Name AR', ['class' => 'awesome']) }}
+    <div class="col-md-6">
 
-        {!! Form::text('nameAR', null, ['class'=>'form-control']) !!}
+        <div class="form-group">
 
-        @if ($errors->has('nameAR'))
-            <span class="help-block">
+            {{ Form::label('nameAR', 'Name AR', ['class' => 'awesome']) }}
+            {!! Form::text('nameAR', null, ['class'=>'form-control']) !!}
+
+            @if ($errors->has('nameAR'))
+                <span class="help-block">
         <strong>{{ $errors->first('nameAR') }}</strong>
         </span>
-        @endif
-    </div>
-    <div class="form-group">
-        {{ Form::label('nameEN', 'Name EN', ['class' => 'awesome']) }}
-        {!! Form::text('nameEN', null, ['class'=>'form-control']) !!}
-        @if ($errors->has('nameEN'))
-            <span class="help-block">
+            @endif
+        </div>
+        <div class="form-group">
+            {{ Form::label('nameEN', 'Name EN', ['class' => 'awesome']) }}
+            {!! Form::text('nameEN', null, ['class'=>'form-control']) !!}
+            @if ($errors->has('nameEN'))
+                <span class="help-block">
         <strong>{{ $errors->first('nameEN') }}</strong>
         </span>
-        @endif
-    </div>
+            @endif
+        </div>
 
-    <div class="form-group">
-        {{ Form::label('price', 'Price', ['class' => 'awesome']) }}
-        {!! Form::number('price', null, ['class'=>'form-control']) !!}
-        @if ($errors->has('price'))
-            <span class="help-block">
+        <div class="form-group">
+            {{ Form::label('price', 'Price', ['class' => 'awesome']) }}
+            {!! Form::number('price', null, ['class'=>'form-control']) !!}
+            @if ($errors->has('price'))
+                <span class="help-block">
         <strong>{{ $errors->first('price') }}</strong>
         </span>
-        @endif
-    </div>
-    <div class="form-group">
-        {{ Form::label('category', 'Category', ['class' => 'awesome']) }}
+            @endif
+        </div>
+        <div class="form-group">
+            {{ Form::label('category', 'Category', ['class' => 'awesome']) }}
 
-        <select name="cate_id" class="form-control" style="height:36px">
-            <option>Select Vehicle</option>
-            @foreach($categories as $category)
-                <option value="{{ $category->id }}">
-                    {{ json_decode($category->name, true)['EN'] }}
+            <select name="cate_id" class="form-control" style="height:36px">
+                <option>Select</option>
+                @foreach($categories as $category)
+                    <option value="{{ $category->id }}">
+                        {{ json_decode($category->name, true)['EN'] }}
 
-                </option>
-            @endforeach
-            @if ($errors->has('cate_id'))
-                <span class="help-block">
+                    </option>
+                @endforeach
+                @if ($errors->has('cate_id'))
+                    <span class="help-block">
                                         <strong>{{ $errors->first('cate_id') }}</strong>
                                     </span>
-            @endif
-        </select>
-    </div>
-    <div class="form-group">
+                @endif
+            </select>
+        </div>
+        <div class="form-group">
 
-        {{ Form::label('img', 'Image', ['class' => 'awesome']) }}
-        {{ Form::file('img', null)  }}
-        {{--<input id="file-upload" type="file" name="img" id="img"/>--}}
-        @if ($errors->has('img'))
-            <span class="help-block">
+            {{ Form::label('img', 'Image', ['class' => 'awesome']) }}
+            {{ Form::file('img', null)  }}
+            {{--<input id="file-upload" type="file" name="img" id="img"/>--}}
+            @if ($errors->has('img'))
+                <span class="help-block">
         <strong>{{ $errors->first('img') }}</strong>
         </span>
-        @endif
+            @endif
+        </div>
+
+    </div>
+    <div class="col-md-6"><h3>Description</h3>
+        <div class="form-group">
+
+            @foreach($descriptions as $description)
+                <div class="checkbox checkbox-success">
+                    <input name="desc_id[]" id="desc_id{{ $description->id }}" type="checkbox"
+                           value="{{ $description->id }}">
+                    <label for="extra_id{{ $description->id }}">{{ json_decode($description->name, true)['EN'] }} {{ json_decode($description->name, true)['AR'] }}</label>
+                </div>
+            @endforeach
+        </div>
+        <h3>Extra</h3>
+        <div class="form-group">
+            @foreach($extras as $extra)
+                <div class="checkbox checkbox-success">
+                    <input name="extra_id[]" id="extra_id{{ $extra->id }}" type="checkbox"
+                           value="{{ $extra->id }}">
+                    <label for="extra_id{{ $extra->id }}"> {{ json_decode($extra->name, true)['EN'] }} {{ json_decode($extra->name, true)['AR'] }}</label>
+                </div>
+            @endforeach
+        </div>
     </div>
     {{ Form::submit('Publish',['class'=> 'btn btn-default']) }}
     {{ Form::close() }}
 @endsection
-
-

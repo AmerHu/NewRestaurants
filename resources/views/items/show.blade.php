@@ -47,7 +47,7 @@
         </div>
 
         <div class="col-md-6">
-            <img src="/images/items/{{ $item->img }}" width="100%"/>
+            <img src="/{{ $item->img }}" width="100%"/>
         </div>
     </div>
     <br>

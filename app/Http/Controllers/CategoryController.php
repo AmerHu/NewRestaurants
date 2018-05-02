@@ -52,6 +52,7 @@ class CategoryController extends Controller
             $file = request()->file('img');
             $fileName = time() . '.' . $file->getClientOriginalExtension();
             $file->move(public_path('images/categories'), $fileName);
+            $fileName ='images/categories/'. $fileName;
             Category::create([
                 'name' => json_encode(['EN'=> request("nameEN"), 'AR' => request("nameAR")]),
                 'img' => $fileName,
@@ -95,13 +96,12 @@ class CategoryController extends Controller
     {
         if ($request->hasFile('img')) {
             $image = DB::table('categories')->where('id', $id)->pluck('img')->first();
-            $filename = (public_path('images/categories/') . $image);
-            File::delete($filename);
-
+            File::delete($image);
 
             $file = $request->file('img');
             $fileName = time() . '.' . $file->getClientOriginalExtension();
             $file->move(public_path('images/categories'), $fileName);
+            $fileName= 'images/categories/'.$fileName;
             Category::whereId($id)->update([
 
                 'name' => json_encode(['EN'=> request("nameEN"), 'AR' => request("nameAR")]),

@@ -51,6 +51,7 @@ class OffersController extends Controller
             $file = request()->file('img');
             $fileName = time() . '.' . $file->getClientOriginalExtension();
             $file->move(public_path('images/offers'), $fileName);
+            $fileName = 'images/offers/'.$fileName;
             Offers::create([
                 'name' => json_encode(['EN'=> request("nameEN"), 'AR' => request("nameAR")]),
                 'price' => $request['price'],
@@ -102,14 +103,13 @@ class OffersController extends Controller
     {
         if ($request->hasFile('img')) {
             $image = DB::table('offers')->where('id', $id)->pluck('img')->first();
-            $filename = (public_path('images/offers/').$image);
-
-            File::delete($filename);
+            File::delete($image);
 
 
             $file = $request->file('img');
             $fileName = time() . '.' . $file->getClientOriginalExtension();
             $file->move(public_path('images/offers'), $fileName);
+            $fileName = 'images/offers/'. $fileName;
             Offers::whereId($id)->update([
 
                 'name' => json_encode(['EN'=> request("nameEN"), 'AR' => request("nameAR")]),

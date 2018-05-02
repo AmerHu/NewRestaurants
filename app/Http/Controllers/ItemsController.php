@@ -3,7 +3,11 @@
 namespace App\Http\Controllers;
 
 use App\Category;
+use App\Description;
+use App\Extra;
+use App\Item_desc;
 use App\Items;
+use App\SubItems;
 use Illuminate\Http\Request;
 use DB;
 use File;
@@ -29,7 +33,9 @@ class ItemsController extends Controller
     public function create()
     {
         $categories = Category::all();
-        return view('items.create',compact('categories'));
+        $extras = Extra::all();
+        $descriptions = Description::all();
+        return view('items.create',compact('categories','descriptions','extras'));
     }
 
     /**
@@ -52,6 +58,7 @@ class ItemsController extends Controller
             $file = request()->file('img');
             $fileName = time() . '.' . $file->getClientOriginalExtension();
             $file->move(public_path('images/items'), $fileName);
+            $fileName = 'images/items/'.$fileName;
             Items::create([
                 'name' => json_encode(['EN'=> request("nameEN"), 'AR' => request("nameAR")]),
                 'price' => $request['price'],
@@ -60,7 +67,26 @@ class ItemsController extends Controller
                 'active' => 0,
             ]);
         }
-        return redirect('/items/admin');
+        $item_id = DB::table('items')->max('id');
+        $descriptions = $request->get('desc_id');
+        foreach ($descriptions as $desc) {
+            $itemDesc = new Item_desc();
+            $itemDesc->item_id = $item_id;
+            $itemDesc->desc_id = $desc;
+            $itemDesc->save();
+        }
+
+        $extras = $request->get('extra_id');
+        foreach ($extras as $extra) {
+            $subItem = new SubItems();
+            $subItem->item_id = $item_id;
+            $subItem->extra_id = $extra;
+            $subItem->save();
+        }
+
+
+
+        return redirect('/items/show/'.$item_id);
     }
 
 
@@ -122,11 +148,14 @@ class ItemsController extends Controller
 
         if ($request->hasFile('img')) {
             $image = DB::table('items')->where('id', $id)->pluck('img')->first();
-            $filename = (public_path('images/items/').$image);
+            $filename = 'images/items/'.$image;
             File::delete($filename);
             $file = $request->file('img');
+
             $fileName = time() . '.' . $file->getClientOriginalExtension();
+
             $file->move(public_path('images/items'), $fileName);
+            $fileName = 'images/items/'. $fileName;
             Items::whereId($id)->update([
                 'name' => json_encode(['EN'=> request("nameEN"), 'AR' => request("nameAR")]),
                 'price' => $request['price'],

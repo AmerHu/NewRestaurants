@@ -3,7 +3,7 @@
     <h3>Arabic Name : {{ json_decode($compo->name, true)['AR'] }}</h3>
 </div>
 <div class="col-md-3">
-    <img src="/images/compo/{{$compo->img}}" style="width:80%">
+    <img src="/{{$compo->img}}" style="width:80%">
 </div>
 <div class="col-md-4 text-center">
     @if($compo->active == 1)

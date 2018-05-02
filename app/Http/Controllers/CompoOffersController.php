@@ -50,9 +50,10 @@ class CompoOffersController extends Controller
             $file = request()->file('img');
             $fileName = time() . '.' . $file->getClientOriginalExtension();
             $file->move(public_path('images/compo'), $fileName);
+            $fileName = 'images/compo/' . $fileName;
 
             CompoOffers::create([
-                'name' => json_encode(['EN'=> request("nameEN"), 'AR' => request("nameAR")]),
+                'name' => json_encode(['EN' => request("nameEN"), 'AR' => request("nameAR")]),
                 'price' => request("price"),
                 'img' => $fileName,
             ]);
@@ -102,22 +103,21 @@ class CompoOffersController extends Controller
     {
         if ($request->hasFile('img')) {
             $image = DB::table('compo_offers')->where('id', $id)->pluck('img')->first();
-            $filename = (public_path('images/compo/') . $image);
-            File::delete($filename);
-
+            File::delete($image);
 
             $file = $request->file('img');
             $fileName = time() . '.' . $file->getClientOriginalExtension();
             $file->move(public_path('images/compo'), $fileName);
+            $fileName = 'images/compo/' . $fileName;
             CompoOffers::whereId($id)->update([
-                'name' => json_encode(['EN'=> request("nameEN"), 'AR' => request("nameAR")]),
+                'name' => json_encode(['EN' => request("nameEN"), 'AR' => request("nameAR")]),
                 'price' => $request['price'],
                 'img' => $fileName,
             ]);
         } else {
             $image = DB::table('compo_offers')->where('id', $id)->pluck('img')->first();
             CompoOffers::whereId($id)->update([
-                'name' => json_encode(['EN'=> request("nameEN"), 'AR' => request("nameAR")]),
+                'name' => json_encode(['EN' => request("nameEN"), 'AR' => request("nameAR")]),
                 'price' => $request['price'],
                 'img' => $image,
             ]);
@@ -132,7 +132,7 @@ class CompoOffersController extends Controller
      * @param  \App\CompoOffers $compoOffers
      * @return \Illuminate\Http\Response
      */
-    public function destroy(Request $request, $id,$active)
+    public function destroy(Request $request, $id, $active)
     {
         $price = DB::table('compo_offers')->where('id', $id)->pluck('price')->first();
         $name = DB::table('compo_offers')->where('id', $id)->pluck('name')->first();

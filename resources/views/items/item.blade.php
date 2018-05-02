@@ -4,7 +4,7 @@
 </div>
 
 <div class="col-md-3">
-    <img src="/images/items/{{$item->img}}" style="width: 100%">
+    <img src="/{{$item->img}}" style="width: 100%">
 </div>
 <div class="col-md-4 text-center">
     @if($item->active == 1)

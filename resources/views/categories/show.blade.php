@@ -9,7 +9,7 @@
             <h3>Name EN :{{ json_decode($category->name, true)['EN'] }}</h3>
         </div>
         <div class="col-md-6">
-            <img src="/images/categories/{{ $category->img }}" style="height:  60%">
+            <img src="/{{ $category->img }}" style="height:  60%">
         </div>
     </div>
     <div class="row">

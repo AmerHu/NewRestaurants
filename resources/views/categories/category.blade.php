@@ -5,7 +5,7 @@
     </h4>
 </div>
 <div class="col-md-4">
-    <img src="/images/categories/{{ $category->img }}" style="height: 300px;">
+    <img src="/{{ $category->img }}" style="height: 300px;">
 </div>
 <div class="col-md-4 text-center">
     @if($category->active == 1)
