@@ -58,7 +58,10 @@ class CompoOffersController extends Controller
                 'img' => $fileName,
             ]);
         }
-        return redirect('/compo/admin');
+
+        $compo_id = DB::table('compo_offers')->max('id');
+         flash('Compo Offer created .')->success();
+        return redirect('/compo/show/'.$compo_id);
     }
 
     /**
@@ -122,6 +125,7 @@ class CompoOffersController extends Controller
                 'img' => $image,
             ]);
         }
+
         return redirect('/compo/admin');
     }
 

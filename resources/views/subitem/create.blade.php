@@ -3,6 +3,9 @@
     <h2> <a href="/items/admin">Items</a></h2>
 @endsection
 @section('content')
+    @if($count >= 0)
+        @include('flash::message')
+    @endif
     <form method="post" action="/subitems/create" enctype="multipart/form-data">
         <div class="form-group">
             <div class="form-group">

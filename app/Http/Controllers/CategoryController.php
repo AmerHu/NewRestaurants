@@ -58,7 +58,9 @@ class CategoryController extends Controller
                 'img' => $fileName,
             ]);
         }
-        return redirect('/category/admin');
+        $desc_id = DB::table('descriptions')->max('id');
+        flash('Category created .')->success();
+        return redirect('/category/show/'.$desc_id);
     }
 
     /**

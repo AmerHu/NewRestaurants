@@ -43,8 +43,10 @@ class SubItemController extends Controller
                 })
                 ->get();
         }
-        if (count($extras) == 0) {
-
+        $count =count($extras);
+        if ($count == 0) {
+            flash('Sorry! This no more Extra Items.')->error();
+            return view('desc_item.create', compact('extras','count'));
         } else {
             return view('subitem.create', compact('extras', 'item'));
         }
@@ -65,6 +67,7 @@ class SubItemController extends Controller
             $subItem->extra_id = $extra;
             $subItem->save();
         }
+        flash('Sorry! This no more Extra Items.')->success();
         return redirect('/items/show/' . $request->get('item_id'));
     }
 

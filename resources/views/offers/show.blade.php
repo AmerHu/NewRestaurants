@@ -5,7 +5,9 @@
 
 
 @section('content')
+    @include('flash::message')
     <div class="row">
+
         <div class="col-md-6">
             <h3>Name EN : {{ json_decode($offer->name, true)['EN'] }}</h3>
             <h3>Name AR : {{ json_decode($offer->name, true)['AR'] }}</h3>

@@ -83,9 +83,7 @@ class ItemsController extends Controller
             $subItem->extra_id = $extra;
             $subItem->save();
         }
-
-
-
+        flash('item created .')->success();
         return redirect('/items/show/'.$item_id);
     }
 

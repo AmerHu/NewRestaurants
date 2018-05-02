@@ -4,8 +4,10 @@
 @endsection
 
 @section('content')
+    @include('flash::message')
     <div class="row">
-        <div class="col-md-6"><h3>English Name : {{ json_decode($item->name, true)['EN'] }}</h3>
+        <div class="col-md-6">
+            <h3>English Name : {{ json_decode($item->name, true)['EN'] }}</h3>
             <h3>Price : {{ $item->price}}</h3>
             <br/>
             <h3>Category :{{ json_decode($category, true)['EN'] }}</h3>

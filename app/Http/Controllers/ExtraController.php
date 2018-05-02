@@ -44,7 +44,7 @@ class ExtraController extends Controller
             'price' => $request['price'],
 
         ]);
-
+        flash('Extras created .')->success();
         return redirect('/extra/admin');
     }
 

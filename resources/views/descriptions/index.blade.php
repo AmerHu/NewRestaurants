@@ -6,6 +6,7 @@
 
 
 @section('content')
+    @include('flash::message')
     <div class="row">
         <div class="offset-8 col-md-4">
             <a class="btn btn-primary btn-block" type="button" href='/desc/create'> New Description</a>

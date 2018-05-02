@@ -3,6 +3,7 @@
     <h2> <a href="/category/admin">Categories</a></h2>
 @endsection
 @section('content')
+    @include('flash::message')
     <div class="row">
         <div class="col-md-6">
             <h4>Name AR :{{ json_decode($category->name, true)['AR'] }}</h4>

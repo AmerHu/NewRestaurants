@@ -40,11 +40,12 @@ class DescriptionController extends Controller
         $this->validate(request(), [
             'nameEN' => 'required|min:5',
             'nameAR' => 'required|min:5',
-
         ]);
         Description::create([
             'name' => json_encode(['EN'=> request("nameEN"), 'AR' => request("nameAR")]),
         ]);
+
+        flash('Discretion created .')->success();
         return redirect('/desc/admin');
     }
 

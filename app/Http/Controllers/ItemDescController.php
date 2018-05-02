@@ -42,7 +42,7 @@ class ItemDescController extends Controller
                 })
                 ->get();
         }
-        $count =count($descriptions);
+            $count =count($descriptions);
         if ($count == 0) {
             flash('Sorry! This no more Description.')->error();
             return view('desc_item.create', compact('descriptions','count'));

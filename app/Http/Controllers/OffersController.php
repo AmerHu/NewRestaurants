@@ -60,7 +60,11 @@ class OffersController extends Controller
                 'require' => $request['require'],
             ]);
         }
-        return redirect('/offers/admin');
+
+        $offer_id = DB::table('offers')->max('id');
+        flash('Offer created .')->success();
+
+        return redirect('/offers/show/'.$offer_id);
     }
 
     /**

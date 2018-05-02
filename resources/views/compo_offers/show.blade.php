@@ -4,6 +4,7 @@
 @endsection
 
 @section('content')
+    @include('flash::message')
     <div class="row">
         <div class="col-md-6">
             <h3>English Name : {{ json_decode($compo->name, true)['EN'] }}</h3><br/>
