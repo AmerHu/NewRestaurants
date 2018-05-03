@@ -6,7 +6,7 @@ use Illuminate\Database\Eloquent\Model;
 
 class Items extends Model
 {
- public function items()
+    public function items()
     {
         return $this->belongsTo('App\Category');
     }
@@ -23,6 +23,7 @@ class Items extends Model
         'description',
         'img',
         'cate_id',
+        'about',
     ];
 
 }

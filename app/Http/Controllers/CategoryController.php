@@ -6,7 +6,6 @@ use App\Category;
 use Illuminate\Http\Request;
 use DB;
 use File;
-use Illuminate\Support\Facades\Input;
 
 class CategoryController extends Controller
 {
@@ -41,6 +40,8 @@ class CategoryController extends Controller
      */
     public function store(Request $request)
     {
+
+
         $this->validate(
             request(), [
             'nameEN' => 'required|min:5',
@@ -58,9 +59,9 @@ class CategoryController extends Controller
                 'img' => $fileName,
             ]);
         }
-        $desc_id = DB::table('descriptions')->max('id');
+        $desc_id = DB::table('categories')->max('id');
         flash('Category created .')->success();
-        return redirect('/category/show/'.$desc_id);
+        return back()->withInput();
     }
 
     /**

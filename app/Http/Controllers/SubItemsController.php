@@ -32,9 +32,13 @@ class SubItemController extends Controller
         $item = Items::find($id);
         $extra_id = DB::table('sub_items')->where('item_id', $id)->get()->pluck('extra_id');
         if ($extra_id == null) {
-            $extras = Extra::all();
-        } else {
 
+            $extras = DB::table('categories')
+                ->select('categories.id', 'categories.name')
+                ->join('category_extras', 'category_id', '=', 'categories.id')
+                ->where('extra_id', '=', $id)
+                ->get();
+        } else {
             $extras = DB::table('extras')
                 ->whereNotIn('id',function ($query) use ($id) {
                     $query->select('extra_id')
@@ -48,7 +52,7 @@ class SubItemController extends Controller
             flash('Sorry! This no more Extra Items.')->error();
             return view('desc_item.create', compact('extras','count'));
         } else {
-            return view('subitem.create', compact('extras', 'item'));
+            return view('subitem.create', compact('extras', 'item','count'));
         }
     }
 
@@ -61,13 +65,17 @@ class SubItemController extends Controller
     public function store(Request $request)
     {
         $extras = $request->get('extra_id');
-        foreach ($extras as $extra) {
-            $subItem = new SubItems();
-            $subItem->item_id = $request->get('item_id');
-            $subItem->extra_id = $extra;
-            $subItem->save();
+        if (count($extras)>0){
+            foreach ($extras as $extra) {
+                $subItem = new SubItems();
+                $subItem->item_id = $request->get('item_id');
+                $subItem->extra_id = $extra;
+                $subItem->save();
+            }
+            flash( 'This extra added .')->success();
+        }else{
+            flash('Sorry! This no Extra added.')->error();
         }
-        flash('Sorry! This no more Extra Items.')->success();
         return redirect('/items/show/' . $request->get('item_id'));
     }
 

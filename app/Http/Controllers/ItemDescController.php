@@ -61,11 +61,15 @@ class ItemDescController extends Controller
     function store(Request $request)
     {
         $descriptions = $request->get('extra_id');
-        foreach ($descriptions as $desc) {
-            $itemDesc = new Item_desc();
-            $itemDesc->item_id = $request->get('item_id');
-            $itemDesc->desc_id = $desc;
-            $itemDesc->save();
+        if (count($descriptions )>0){
+            foreach ($descriptions as $desc) {
+                $itemDesc = new Item_desc();
+                $itemDesc->item_id = $request->get('item_id');
+                $itemDesc->desc_id = $desc;
+                $itemDesc->save();
+            }   flash( 'This Description added .')->success();
+        }else{
+            flash('Sorry! This no Description added.')->error();
         }
         return redirect('/items/show/' . $request->get('item_id'));
     }

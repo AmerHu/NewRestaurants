@@ -59,11 +59,13 @@ class ItemsOfferController extends Controller
     public function store(Request $request)
     {
         $compos = $request->get('item_id');
-        foreach ($compos as $compo) {
-            $itemOffer = new ItemsOffer();
-            $itemOffer->offer_id = $request->get('offer_id');
-            $itemOffer->item_id = $compo;
-            $itemOffer->save();
+        if (count($compos)> 0  ) {
+            foreach ($compos as $compo) {
+                $itemOffer = new ItemsOffer();
+                $itemOffer->offer_id = $request->get('offer_id');
+                $itemOffer->item_id = $compo;
+                $itemOffer->save();
+            }
         }
         return redirect('/compo/show/' . $request->get('offer_id'));
     }

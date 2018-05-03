@@ -127,3 +127,13 @@ Route::post('/extraoffer/edit/{id}', 'ExtraOffersController@update');
 Route::get('/extraoffer/delete/{extra_id}/{offer_id}', 'ExtraOffersController@destroy');
 Route::get('/extraoffer/create/{id}', 'ExtraOffersController@create');
 Route::post('/extraoffer/create', 'ExtraOffersController@store');
+
+
+
+//offer extra items
+
+Route::get('/cateExtra/edit/{id}', 'CategoryExtrasController@edit');
+Route::post('/cateExtra/edit/{id}', 'CategoryExtrasController@update');
+Route::get('/cateExtra/delete/{cate_id}/{extra_id}', 'CategoryExtrasController@destroy');
+Route::get('/cateExtra/create/{id}', 'CategoryExtrasController@create');
+Route::post('/cateExtra/create', 'CategoryExtrasController@store');

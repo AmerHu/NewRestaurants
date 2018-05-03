@@ -3,6 +3,9 @@
     <h2><a href="/items/admin">Items</a></h2>
 @endsection
 @section('content')
+
+    @if(count($categories)>0)
+
     {{ Form::open(array('url' => '/items/create', 'files' => true )) }}
     {{ csrf_field() }}
 
@@ -39,6 +42,15 @@
             @endif
         </div>
         <div class="form-group">
+            {{ Form::label('about', 'About', ['class' => 'awesome']) }}
+            {!! Form::text('about', null, ['class' => 'form-control','step' => '0.1']) !!}
+            @if ($errors->has('about'))
+                <span class="help-block">
+        <strong>{{ $errors->first('about') }}</strong>
+        </span>
+            @endif
+        </div>
+        <div class="form-group">
             {{ Form::label('category', 'Category', ['class' => 'awesome']) }}
 
             <select name="cate_id" class="form-control" style="height:36px">
@@ -69,7 +81,8 @@
         </div>
 
     </div>
-    <div class="col-md-6"><h3>Description</h3>
+    <div class="col-md-6">
+        <h3>Description</h3>
         <div class="form-group">
 
             @foreach($descriptions as $description)
@@ -80,17 +93,18 @@
                 </div>
             @endforeach
         </div>
-        <h3>Extra</h3>
-        <div class="form-group">
-            @foreach($extras as $extra)
-                <div class="checkbox checkbox-success">
-                    <input name="extra_id[]" id="extra_id{{ $extra->id }}" type="checkbox"
-                           value="{{ $extra->id }}">
-                    <label for="extra_id{{ $extra->id }}"> {{ json_decode($extra->name, true)['EN'] }} {{ json_decode($extra->name, true)['AR'] }}</label>
-                </div>
-            @endforeach
-        </div>
+
     </div>
     {{ Form::submit('Publish',['class'=> 'btn btn-default']) }}
     {{ Form::close() }}
+    @else
+        <div class="row">
+            <div class="col-md-8">
+                <h2> Please Create Category </h2>
+            </div>
+            <div class="col-md-4">
+                <a class="btn btn-primary btn-block" type="button" href="/category/create"> New Categories</a>
+            </div>
+        </div>
+    @endif
 @endsection
